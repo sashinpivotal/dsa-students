@@ -189,4 +189,14 @@ A = decimal 10
         }
     }
 ```
+- Example custom exception class
+
+```
+public class MyNumberFormatException extends RuntimeException {
+
+    public MyNumberFormatException(String message) {
+        super(message);
+    }
+}
+```
 
