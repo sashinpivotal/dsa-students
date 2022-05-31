@@ -122,7 +122,7 @@ README.html
 - Decimal number system
 
 ```
-Possible numbers: 0, 1, ,8, 9
+Possible numbers: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
 324 = 3*100 + 2*10 + 4 * 1
 ```
 
