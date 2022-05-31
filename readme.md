@@ -151,3 +151,21 @@ A = decimal 10
 ```
 
 - [int value range](https://www.i-programmer.info/ebooks/modern-java/5423-java-data-types-numeric-data.html#:~:text=128%20to%20127-,short%202%20bytes%20%2D32%2C768%20to%2032%2C767,4%20bytes%207%20decimal%20digits) 
+
+
+## Lab 1.3 Test plans
+
+- Positive tests
+  - normal cases
+    - it should return valid decimal value given valid number array
+    - it should return valid decimal value given valid number array with duplicates
+  - edge cases
+    - null array
+      - it should throw InvalidParameterException given null array
+    - empty array
+      - it should throw InvalidParameterException given empty array
+
+- Negative tests
+  - the input string has non numeric value
+    - it should throw MyNumberFormatException given an array that contains non-numeric characters
+  - the resulting number is not in the range of 4 byte int
