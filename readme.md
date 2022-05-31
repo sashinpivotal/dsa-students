@@ -18,6 +18,48 @@
 - What is "Open for extension Closed for modification" design principle?
 - SOLID Design principles
 
+## .gitignore example file
+
+```
+# Operating System Files
+
+*.DS_Store
+Thumbs.db
+*.sw?
+.#*
+*#
+*~
+*.sublime-*
+
+# Build Artifacts
+
+.gradle/
+build/
+target/
+bin/
+out/
+dependency-reduced-pom.xml
+
+# Eclipse Project Files
+
+.classpath
+.project
+.metadata
+.loadpath
+bin/
+.settings/
+
+# IntelliJ IDEA Files
+
+*.iml
+*.ipr
+*.iws
+*.idea
+
+.vscode/
+README.html
+```
+
 ## IntelliJ Shortcut keys
 
 ### IntelliJ Shortcut keys for Mac:
@@ -76,3 +118,11 @@
 ## Binary and Octal Conversion
 
 - [Number system youtube intro](https://www.youtube.com/watch?v=FFDMzbrEXaE&ab_channel=TheOrganicChemistryTutor)
+
+- Decimal number system
+
+- Binary number system
+
+- Octal number system
+
+- Hexadecimal number system
