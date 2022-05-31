@@ -170,7 +170,7 @@ A = decimal 10
     - it should throw MyNumberFormatException given an array that contains non-numeric characters
   - the resulting number is not in the range of 4 byte int
 
-### Two different ways of testing an exception handling
+### Two different ways of testing if your code generates an exception correctly
 
 ```
     @Test(expected = MyNumberFormatException.class)
