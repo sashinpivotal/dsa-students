@@ -149,3 +149,5 @@ Possible numbers: 0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F
 A = decimal 10
 1F = 1 * 16 + F = decimal value 31
 ```
+
+- [int value range](https://www.i-programmer.info/ebooks/modern-java/5423-java-data-types-numeric-data.html#:~:text=128%20to%20127-,short%202%20bytes%20%2D32%2C768%20to%2032%2C767,4%20bytes%207%20decimal%20digits) 
