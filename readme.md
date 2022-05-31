@@ -169,3 +169,24 @@ A = decimal 10
   - the input string has non numeric value
     - it should throw MyNumberFormatException given an array that contains non-numeric characters
   - the resulting number is not in the range of 4 byte int
+
+### Two different ways of testing an exception handling
+
+```
+    @Test(expected = MyNumberFormatException.class)
+    public void _convertFromOctal_should_throw_MyNumberFormatException_given_octal_string_with_non_number_chars() throws MyNumberFormatException {
+        BinaryConvert.convertFromOctal("17a");
+    }
+
+    @Test
+    public void convertFromBinaryNegativeBadString() {
+        String badOctalStr = "17a";
+        try {
+            BinaryConvert.convertFromOctal(badOctalStr);
+            fail("Didn't throw exception");
+        } catch (MyNumberFormatException ipe) {
+            assertEquals(badOctalStr, ipe.getMessage());
+        }
+    }
+```
+
