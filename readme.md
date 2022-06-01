@@ -208,7 +208,7 @@ public class MyNumberFormatException extends RuntimeException {
 
 ## Lab 1.4 corrected 
 
-```
+
 Steps for Completion
 1. Assume that we have a way to sort the inputs in O(n log n). This is provided in the following method:
             public void mergeSort(int[] input) {
@@ -221,7 +221,7 @@ per item in the first list. This is *O(n log n) + O(log n)* which results in a f
 4. Go through the input arrays in a linear fashion.
 5. Advance a pointer if the other pointer is pointing to a larger value.
 6. If the values at both pointers are equal, both pointers are incremented. The runtime complexity for this algorithm is 2 * (n log n) for the two merge sorts plus the n for the linear pass after the sorting. This results in 2 * (n log n) + n with a final O(n log n).
-```
+
 
 ## Binary Search
 
