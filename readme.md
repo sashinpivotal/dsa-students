@@ -206,8 +206,7 @@ public class MyNumberFormatException extends RuntimeException {
 
 - [Java Exception presentation](https://github.com/sashinpivotal/java-presentations/blob/main/javase_exceptions.pdf)
 
-## Lab 1.4 corrected 
-
+## Lab 1.4 corrected wording from the book (page 29)
 
 Steps for Completion
 1. Assume that we have a way to sort the inputs in O(n log n). This is provided in the following method:
