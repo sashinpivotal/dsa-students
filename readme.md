@@ -208,6 +208,7 @@ public class MyNumberFormatException extends RuntimeException {
 
 ## Quick Quiz after Day 1
 
+- What is ".gitignore" file for?
 - What are the differences between Checked Exception vs Unchecked exceptions?
 - What is the top-level Unchecked exception in Java?
 - What does try/catch block do in Java?
