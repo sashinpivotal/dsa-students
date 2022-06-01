@@ -215,8 +215,8 @@ Steps for Completion
               Arrays.sort(input);
 }
 We can use this method to sort one input array, or both, and make the intersection easier.
-2. To sort one input array, we can use a binary search on it. The runtime complexity is O(n log n) for the merge sort plus *O(log n)* for the binary search
-per item in the first list. This is *O(n log n) + O(log n)* which results in a final O(n log n).
+2. To sort one input array, we can use a binary search on it. The runtime complexity is O(n log n) for the merge sort plus **O(log n)** for the binary search
+per item in the first list. This is **O(n log n) + O(log n)** which results in a final O(n log n).
 3. Sort both arrays, and have two pointers, one for each array.
 4. Go through the input arrays in a linear fashion.
 5. Advance a pointer if the other pointer is pointing to a larger value.
