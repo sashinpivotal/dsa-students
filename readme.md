@@ -205,3 +205,54 @@ public class MyNumberFormatException extends RuntimeException {
 ```
 
 - [Java Exception presentation](https://github.com/sashinpivotal/java-presentations/blob/main/javase_exceptions.pdf)
+
+## Lab 1.4 corrected 
+
+```
+Steps for Completion
+1. Assume that we have a way to sort the inputs in O(n log n). This is provided in the following method:
+            public void mergeSort(int[] input) {
+              Arrays.sort(input);
+}
+We can use this method to sort one input array, or both, and make the intersection easier.
+2. To sort one input array, we can use a binary search on it. The runtime complexity is O(n log n) for the merge sort plus *O(log n)* for the binary search
+per item in the first list. This is *O(n log n) + O(log n)* which results in a final O(n log n).
+3. Sort both arrays, and have two pointers, one for each array.
+4. Go through the input arrays in a linear fashion.
+5. Advance a pointer if the other pointer is pointing to a larger value.
+6. If the values at both pointers are equal, both pointers are incremented. The runtime complexity for this algorithm is 2 * (n log n) for the two merge sorts plus the n for the linear pass after the sorting. This results in 2 * (n log n) + n with a final O(n log n).
+```
+
+## Binary Search
+
+- Assumed the numbers are already sorted
+- Example
+
+```
+sorted array: [1, 2, 3, 4, 7, 8, 9, 11, 14, 17, 20]
+target: 4
+
+- 1st phase [1, 2, 3, 4, 7]
+- 2nd phase [3, 4, 7]
+- 3rd phase [4]
+```
+
+## Intersection Fast
+
+- Assume both array's are sorted
+
+```
+sorted array1: [12, 22, 24, 66, 75, 87]
+sorted array2: [24, 32, 39, 41, 66, 98]
+```
+
+## Steps of recursive programs
+
+Every recursive program follows the same basic sequence of steps:
+
+1. Initialize the algorithm. Recursive programs often need a seed value to start with. This is accomplished either by using a parameter passed to the function or by providing a gateway function that is nonrecursive but that sets up the seed values for the recursive calculation.
+2. Check to see whether the current value(s) being processed match the base case. If so, process and return the value.
+3. Redefine the answer in terms of a smaller or simpler sub-problem or sub-problems.
+4. Run the algorithm on the sub-problem.
+5. Combine the results in the formulation of the answer.
+6. Return the results.
