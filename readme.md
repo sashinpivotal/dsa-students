@@ -228,18 +228,15 @@ per item in the first list. This is **O(n log n) + O(n log n)** which results in
 3. Advance a pointer if the other pointer is pointing to a larger value.
 4. If the values at both pointers are equal, both pointers are incremented. The runtime complexity for this algorithm is 2 * (n log n) for the two merge sorts plus the n for the linear pass after the sorting. This results in 2 * (n log n) + n with a final O(n log n).
 
-## O notation of Lab 1.4
+## Runtime complexity of Lab 1.4 - find interesected numbers
 
-- Comlexity of two arrays not sorted - O(n square of 2) worst
-- One single array sorted, the other array not sorted - O(n log n) + O(n log n) -> O (n log n)
-- Two arrays are sorted - 2 * O(n log n) + n -> 2 * O(n log n) -> O (n log n)
+- Runtime complexity of neither arrays sorted
+  - O(n square of 2) worst
+- Runtime complexity of One single array sorted, the other array not sorted 
+  - O(n log n) + O(n log n) -> O (n log n)
+- Runtime complexity of both arrays are sorted
+  - 2 * O(n log n) + n -> 2 * O(n log n) -> O (n log n)
 
-- Example sorted array
-  
-```
-12,22,24,66,75,87,99
-24,32,39,41,98,99
-```
 
 ## Sorting related resources
 
