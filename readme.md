@@ -209,7 +209,7 @@ public class MyNumberFormatException extends RuntimeException {
 ## Quick Quiz after Day 1
 
 - What is ".gitignore" file for?
-- What are the differences between Checked Exception vs Unchecked exceptions?
+- What are the differences between Checked Exception vs Unchecked exception?
 - What is the top-level Unchecked exception in Java?
 - What does try/catch block do in Java?
 
@@ -241,15 +241,6 @@ target: 4
 - 1st phase [1, 2, 3, 4, 7]
 - 2nd phase [3, 4, 7]
 - 3rd phase [4]
-```
-
-## Intersection Fast
-
-- Assume both array's are sorted
-
-```
-sorted array1: [12, 22, 24, 66, 75, 87]
-sorted array2: [24, 32, 39, 41, 66, 98]
 ```
 
 ## Steps of recursive programs
