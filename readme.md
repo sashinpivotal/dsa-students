@@ -232,7 +232,7 @@ per item in the first list. This is **O(n log n) + O(n log n)** which results in
 
 - Runtime complexity of neither arrays sorted
   - O(n square of 2) worst
-- Runtime complexity of One single array sorted, the other array not sorted 
+- Runtime complexity of one array sorted while the other array is not sorted 
   - O(n log n) + O(n log n) -> O (n log n)
 - Runtime complexity of both arrays are sorted
   - 2 * O(n log n) + n -> 2 * O(n log n) -> O (n log n)
