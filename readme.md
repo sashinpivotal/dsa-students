@@ -284,3 +284,10 @@ Every recursive program follows the same basic sequence of steps:
 4. Run the algorithm on the sub-problem.
 5. Combine the results in the formulation of the answer.
 6. Return the results.
+
+## Quick sort resources
+
+- [Quicksort: Partioning an array (~5 minutes)](https://www.youtube.com/watch?v=MZaf_9IZCrc&ab_channel=KCAng)
+- [Lomundo quicksort youtube video (~3 minutes)](https://www.youtube.com/watch?v=86WSheyr8cM&ab_channel=BukanCaraCepat)
+
+
