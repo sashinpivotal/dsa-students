@@ -2,7 +2,7 @@
 
 - [Sang Shin's Java presentations](https://github.com/sashinpivotal/java-presentations)
 
-## Java questions 
+## Java questions (Sang asked these questions to guage students' Java knowledge)
 
 - When do you want to use Java interface?
 - When is a static method?  Why do you want to create a method as a static method? Is it a good idea to create a static method which maintains a state?
