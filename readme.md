@@ -206,6 +206,12 @@ public class MyNumberFormatException extends RuntimeException {
 
 - [Java Exception presentation](https://github.com/sashinpivotal/java-presentations/blob/main/javase_exceptions.pdf)
 
+## Quick Quiz after Day 1
+
+- What are the differences between Checked Exception vs Unchecked exceptions?
+- What is the top-level Unchecked exception in Java?
+- What does try/catch block do in Java?
+
 ## Lab 1.4 corrected wording from the book (page 29)
 
 Steps for Completion
