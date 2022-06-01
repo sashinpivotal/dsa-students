@@ -228,6 +228,22 @@ per item in the first list. This is **O(n log n) + O(log n)** which results in a
 3. Advance a pointer if the other pointer is pointing to a larger value.
 4. If the values at both pointers are equal, both pointers are incremented. The runtime complexity for this algorithm is 2 * (n log n) for the two merge sorts plus the n for the linear pass after the sorting. This results in 2 * (n log n) + n with a final O(n log n).
 
+## Bubble sort
+
+- logic of bubble sort
+
+```
+- initial array
+15, 7, 12, 4, 17, 9, 5, 6
+
+- first iteration k=1
+7, 12, 4, 15, 9, 5, 6, 17
+- 2nd  iteration k=2
+7, 4, 12, 9, 5, 6, 15, 17
+- 3rd iteration k=3
+4, 7, 9, 5, 6, 12, 15, 17
+
+```
 
 ## Binary Search
 
