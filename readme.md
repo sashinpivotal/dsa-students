@@ -279,7 +279,7 @@ target: 4
 Every recursive program follows the same basic sequence of steps:
 
 1. Initialize the algorithm. Recursive programs often need a seed value to start with. This is accomplished either by using a parameter passed to the function or by providing a gateway function that is nonrecursive but that sets up the seed values for the recursive calculation.
-2. Check to see whether the current value(s) being processed match the base case. If so, process and return the value.
+2. **Check to see whether the current value(s) being processed match the base case.** If so, process and return the value.
 3. Redefine the answer in terms of a smaller or simpler sub-problem or sub-problems.
 4. Run the algorithm on the sub-problem.
 5. Combine the results in the formulation of the answer.
