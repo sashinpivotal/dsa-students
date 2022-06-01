@@ -200,3 +200,5 @@ public class MyNumberFormatException extends RuntimeException {
 }
 ```
 
+- [Java Exception presentation](https://github.com/sashinpivotal/java-presentations/blob/main/javase_exceptions.pdf)
+- [Other Java presentations](https://github.com/sashinpivotal/java-presentations)
