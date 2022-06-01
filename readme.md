@@ -1,3 +1,7 @@
+## Java resources (in addition to class provided ones)
+
+- [Sang Shin's Java presentations](https://github.com/sashinpivotal/java-presentations)
+
 ## Java questions 
 
 - When do you want to use Java interface?
@@ -17,10 +21,6 @@
 - What is dependenccy management?
 - What is "Open for extension Closed for modification" design principle?
 - SOLID Design principles
-
-## Java resources (in addition to class provided ones)
-
-- [Sang Shin's Java presentations](https://github.com/sashinpivotal/java-presentations))
 
 ## .gitignore example file
 
