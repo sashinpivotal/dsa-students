@@ -290,4 +290,29 @@ Every recursive program follows the same basic sequence of steps:
 - [Quicksort: Partioning an array (~5 minutes)](https://www.youtube.com/watch?v=MZaf_9IZCrc&ab_channel=KCAng)
 - [Lomundo quicksort youtube video (~3 minutes)](https://www.youtube.com/watch?v=86WSheyr8cM&ab_channel=BukanCaraCepat)
 
+## Mistake in the QuickSort lab document
+
+There is a mistake in the lab document of Lab 2.3's "partition" method as shown below:
+
+```
+        //  1. if the current array element is less than the pivot
+        //      a. increment "top" by 1
+        //      b. swap the two numbers at the "top" position and the current array index
+        // once the loop is over, swap the values at index "top" with the last iteration position
+        // this will move the pivot at the end of the array to the top position
+        // finally, return the top value + 1
+        // this will become the position of the new pivot for the next recursion
+```
+
+The above should have been the following:
+
+```
+        //  1. if the current array element is less than the pivot
+        //      a. increment "top" by 1
+        //      b. swap the two numbers at the "top" position and the current array index
+        // once the loop is over, swap the values at index "top+1" with "end" position
+        // this will move the pivot at the end of the array to the "top+1" position
+        // finally, return the top value + 1
+        // this will become the position of the new pivot for the next recursion
+```
 
