@@ -390,7 +390,7 @@ public class OptionalExample {
 
 - What is the "base case"/"base condition" of the quick sort?
 - Is it possible to support Queue operations of enqueue() and dequeue() assuming the singular link list has both "head" and "tail"? 
-- In the "pop" operation in the stack below, do we have to do any extra null pointer check of the "node.next" on the line of "head = node.next"?
+- In the "pop" operation in the stack below, do we have to do any extra null pointer check of the "node.next" on the line of "head = node.next"?  In other words, can we set the head with "null"?
 
 ```
 item pop( )
