@@ -386,7 +386,7 @@ public class OptionalExample {
 - [Picture of linked list](https://www.geeksforgeeks.org/difference-between-singly-linked-list-and-doubly-linked-list/)
 
 
-## Challenge questions/exercises of Day 3
+## Challenge/Quiz questions after Day3
 
 - What is the "base case"/"base condition" of the quick sort?
 - Is it possible to support Queue operations of enqueue() and dequeue() assuming the singular link list has both "head" and "tail"? 
