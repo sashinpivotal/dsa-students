@@ -324,3 +324,59 @@ The above should have been the following:
 1. What does "base case" or "base condition" mean in the recursive programming?
 1. If you call a method in recursive fashion without "base condition" check, what would happen?
 1. Can you explain how QuickSort works at the high level?
+
+## Optional example code (We will do just demo and move on)
+
+- Customer class
+
+```
+public class Customer {
+
+    private String name;
+
+    public Customer(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+```
+
+```
+public class CustomerDao {
+
+    public Customer retrieveCustomerFromDatabase(String name) {
+        return null;
+    }
+
+    public Optional<Customer> retrieveCustomerFromDatabaseOptional(String name) {
+        if (name.equals("sang")) {
+            return Optional.of(new Customer(name));
+        } else {
+            return Optional.empty();
+        }
+    }
+}
+```
+
+```
+public class OptionalExample {
+
+    public static void main(String[] args) {
+        Customer customer = new CustomerDao().retrieveCustomerFromDatabase("sang");
+        if (customer != null) {
+            System.out.println(customer.getName());
+        }
+
+        Optional<Customer> optionalCustomer = new CustomerDao().retrieveCustomerFromDatabaseOptional("sang");
+        if (optionalCustomer.isPresent()) {
+            System.out.println(optionalCustomer.get().getName());
+        }
+        else{
+            System.out.println("customer not found");
+        }
+    }
+}
+```
