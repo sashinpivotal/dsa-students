@@ -389,7 +389,7 @@ public class OptionalExample {
 ## Challenge/Quiz questions after Day3
 
 - What is the "base case"/"base condition" of the quick sort?
-- Is it possible to support Queue operations of enqueue() and dequeue() with a singular link node assuming the queue has still both "head" and "tail"? 
+- Is it possible to support Queue operations of "enqueue()" and "dequeue()" with a singular link node (instead of double link node as we've seen in our lab) assuming the queue has still both "head" and "tail"? 
 - In the "pop" operation in the stack below, do we have to do any extra null pointer check of the "node.next" on the line of "head = node.next"?  In other words, can we set the head with "null"?
 
 ```
