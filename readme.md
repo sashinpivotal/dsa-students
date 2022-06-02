@@ -380,3 +380,7 @@ public class OptionalExample {
     }
 }
 ```
+
+## Linked List resources
+
+- [Picture of linked list](https://www.geeksforgeeks.org/difference-between-singly-linked-list-and-doubly-linked-list/)
