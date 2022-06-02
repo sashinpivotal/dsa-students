@@ -318,9 +318,9 @@ The above should have been the following:
 
 ## Quick Quiz after Day 2
 
-- What does O(n) runtime complexity mean?
-- What is the runtime complexity of bubble sort in the form of Big O notation?
-- What is the runtime complexity of binary search in the form of Big O notation?
-- What does "base case" or "base condition" mean in the recursive programming?
-- If you call a method in recursive fashion without "base condition" check, what would happen?
-- Can you explain how QuickSort works at the high level?
+1. What does O(n) runtime complexity mean?
+1. What is the runtime complexity of bubble sort in the form of Big O notation?
+1. What is the runtime complexity of binary search in the form of Big O notation?
+1. What does "base case" or "base condition" mean in the recursive programming?
+1. If you call a method in recursive fashion without "base condition" check, what would happen?
+1. Can you explain how QuickSort works at the high level?
