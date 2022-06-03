@@ -400,7 +400,10 @@ item pop( )
         return node.value
     return null
 ```
+## Simple binary tree sample example
 
+- [Binary Tree with numbers](https://www.baeldung.com/java-binary-tree)
+  
 ## Dependency Injection Demo
 
 - [Sang Shin's Dependency Injection demo](https://www.youtube.com/watch?v=kmQiiT4pATo&ab_channel=SangShin)
