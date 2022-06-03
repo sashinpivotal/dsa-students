@@ -400,3 +400,9 @@ item pop( )
         return node.value
     return null
 ```
+
+## Java Lambda, Functional Interface, Java Streams presentations
+
+- [Lambda syntax](https://github.com/sashinpivotal/java-presentations/blob/main/javase8_lambda_syntax.pdf)
+- [Functional Interface](https://github.com/sashinpivotal/java-presentations/blob/main/javase8_lambda_fi.pdf)
+- [Java Streams](https://github.com/sashinpivotal/java-presentations/blob/main/javase8_lambda_streams.pdf)
