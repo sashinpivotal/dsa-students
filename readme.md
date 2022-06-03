@@ -410,6 +410,7 @@ item pop( )
 
 ## Java Lambda, Functional Interface, Java Streams presentations
 
-- [Lambda syntax](https://github.com/sashinpivotal/java-presentations/blob/main/javase8_lambda_syntax.pdf)
-- [Functional Interface](https://github.com/sashinpivotal/java-presentations/blob/main/javase8_lambda_fi.pdf)
-- [Java Streams](https://github.com/sashinpivotal/java-presentations/blob/main/javase8_lambda_streams.pdf)
+- [Lambda syntax presentation](https://github.com/sashinpivotal/java-presentations/blob/main/javase8_lambda_syntax.pdf)
+  - [Lab document](./javase8_lambda_syntax/index.html)
+- [Functional Interface presentation](https://github.com/sashinpivotal/java-presentations/blob/main/javase8_lambda_fi.pdf)
+- [Java Streams presentation](https://github.com/sashinpivotal/java-presentations/blob/main/javase8_lambda_streams.pdf)
