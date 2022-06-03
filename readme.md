@@ -401,6 +401,10 @@ item pop( )
     return null
 ```
 
+## Dependency Injection Demo
+
+- [Sang Shin's Dependency Injection demo](https://www.youtube.com/watch?v=kmQiiT4pATo&ab_channel=SangShin)
+
 ## Java Lambda, Functional Interface, Java Streams presentations
 
 - [Lambda syntax](https://github.com/sashinpivotal/java-presentations/blob/main/javase8_lambda_syntax.pdf)
