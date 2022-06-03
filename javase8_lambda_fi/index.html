@@ -1,0 +1,3535 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <script src="index_files/tigris.txt" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css"
+      href="index_files/netbeans.css">
+    <title>LAB-1613: Java SE 8: Lambda Expression - Functional Interface</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta name="SourceCastVersion" content="2.6.2.4.10">
+    <meta name="keywords" content="NetBeans, IDE, Platform, free, open
+      source, developer">
+    <link rel="stylesheet" href="index_files/netbeans_002.css">
+    <meta name="author" content="Sang Shin">
+    <style type="text/css">
+#search {height:100%;}
+#topmodule {align:right;}
+  </style>
+    <script language="JavaScript" type="text/javascript">
+<!--
+function get_sc_login() {
+  var sclogin = "guest";
+  return (sclogin);
+}
+var username=get_sc_login();
+//-->
+  </script>
+  </head>
+  <body onload="loginfocus()" class="composite">
+    <br>
+    <div style="text-align: center;">@Copyright notice: This content is
+      meant to be used only for paying subscriber's personal
+      consumption. And any shape or or form of sharing with others is
+      strictly prohibited&nbsp; unless a special licensing arrangement
+      has been made with <a href="mailto:support@jpassion.com">JPassion.com</a>.<!-- begin TopTabs --><!-- end TopTabs --><!-- start NavCol --><!-- end NavCol --><!-- Servlet-Specific template --><!-- Show servlet name if it is a servlet -->
+      <br>
+    </div>
+    <br>
+    <h1 style="text-align: center;">Java SE 8: Lambda Expression -
+      Functional Interface<br>
+    </h1>
+    <div class="articledate" style="margin-left: 0px; text-align:
+      center;"><a href="http://www.jpassion.com/">jpassion.com</a>, <a
+        href="http://groups.google.com/group/jpassion_advanced_java">class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        forum</a><br>
+      <br>
+      <img alt="" src="index_files/sangshin2009.jpg" style="width: 88px;
+        height: 101px;"><br>
+      <a href="mailto:sang.shin@sun.com"><i></i></a></div>
+    <p style="margin-left: 40px;"><font face="Arial, sans-serif">Lambda
+        expression is a formal system for expressing “computational
+        behavior” (or parameterizing a behavior)</font> through
+      functions.&nbsp; Java 8 finally supports Lambda expression through
+      functional interface, which is essentially a single abstract
+      method interface.<br>
+    </p>
+    <br>
+    <p></p>
+    <p align="center"><b>Expected duration: 100 minutes</b></p>
+    <div class="indent"><br>
+      <br>
+      <h3 class="tutorial"><a name="Change_Log"></a>Change Log<br>
+      </h3>
+      <ul>
+        <li>Aug. 19th, 2015: Lambda expression is now divided into 2
+          parts (Sang Shin)</li>
+        <li>Jan. 18th, 2017: Individual exercises are moved to the lab
+          code (Sang Shin)<br>
+        </li>
+      </ul>
+      <br>
+      <h3 class="tutorial"><a name="Tutorial_Exercises"></a>Lab
+        Exercises</h3>
+      <br>
+      Most exercises in this lab are provided in the form of
+      "ready-to-open-and-run" Maven projects in order to maximize the
+      effectiveness of your learning process. You are welcome to create
+      them from scratch.&nbsp;&nbsp; It is also strongly encouraged you
+      do as much experimentation of your own by changing the provided
+      code.<br>
+      <ul>
+        <li><a href="#Exercise_1">Exercise 1: Java 8 provided functional
+            interfaces - simply typed (20 minutes)</a><br>
+        </li>
+        <li><a href="#Exercise_2">Exercise 2: Java 8 provided functional
+            interfaces - generically typed (20 minutes)</a><br>
+        </li>
+        <li><a href="#Exercise_3">Exercise 3: Usage example of Predicate
+            (20 minutes)</a></li>
+        <li><a href="#Exercise_4">Exercise 4: Usage example of Function
+            (20 minutes)</a></li>
+        <li><a href="#Exercise_5">Exercise 5: Composition (20 minutes)<br>
+          </a></li>
+        <li><a href="#Homework">Homework Exercise</a></li>
+      </ul>
+      <br>
+      <ul>
+        <ul>
+        </ul>
+      </ul>
+    </div>
+    <!-- ===================================================================================== -->
+    <h2><a name="Exercise_1"></a>Exercise 1: Java 8 provided functional
+      interfaces - simply typed<br>
+    </h2>
+    <div style="margin-left: 40px;"> <br>
+      Java 8 comes with a set of commonly used functional interfaces in
+      "java.util.function" package - so you don't have to define your
+      own anymore. Use simply typed functional interfaces when the types
+      of arguments and return type can be pre-determined.<br>
+      <br>
+      In this exercise, you are going to exercise several simply typed
+      functional interfaces such as IntPredicate, LongPredicate, etc.<br>
+      <ol>
+        <li><a href="#1.1">Simply typed Java 8 provided functional
+            interfaces<br>
+          </a></li>
+      </ol>
+      <span style="text-decoration: underline;"><span
+          style="font-weight: bold;"> <br>
+        </span></span></div>
+    <br>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="1.1"></a>(1.1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      Simply typed Java 8 provided functional interfaces<br>
+    </h3>
+    <div style="margin-left: 40px;"><br>
+      1. Open/Import project <span style="font-weight: bold;"><span
+          style="color: rgb(51, 51, 255);">lambda_fi_simply_typed</span></span><br>
+      <br>
+      2. Study Main.java. Note that several sumply typed functional
+      interfaces are used.&nbsp; Note that "IntPredicate" functional
+      interface gets "int" argument and returns "boolean".<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.function.DoubleBinaryOperator;<br>
+              import java.util.function.IntPredicate;<br>
+              import java.util.function.LongPredicate;<br>
+              import java.util.function.LongUnaryOperator;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <b><font
+                  color="#ff0000">IntPredicate </font>intPredicate = x
+                -&gt; x &gt; 10;</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; boolean
+              resultBoolean = intPredicate.test(5);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println(resultBoolean);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              <b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <font
+                  color="#ff0000">LongPredicate </font>longPredicate =
+                x -&gt; x &gt; 10;</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; resultBoolean =
+              longPredicate.test(20L);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println(resultBoolean);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              <b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <font
+                  color="#ff0000">LongUnaryOperator </font>longUnaryOperator
+
+                = x -&gt; x * 10;</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; long resultLong =
+              longUnaryOperator.applyAsLong(20L);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println(resultLong);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              <b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <font
+                  color="#ff0000">DoubleBinaryOperator </font>doubleBinaryOperator
+
+                = (x, y) -&gt; x+y;</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; double resultDouble
+              = doubleBinaryOperator.applyAsDouble(2.0, 3.0);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println(resultDouble);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      3. Build and run the project. <br>
+      <br>
+      <span style="color: rgb(0, 0, 0);"></span>
+      <table style="width: 100%; text-align: left;" border="1"
+        cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td style="vertical-align: top;">false<br>
+              true<br>
+              200<br>
+              5.0<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      4. Study the lab document of "IntPredicate".&nbsp; (You can take a
+      look at the full API document by pressing Shift+F12)<br>
+      <br>
+      <img alt="" src="index_files/la_07.png" height="795" width="808"><br>
+      <br>
+      5. Study the source of IntPredicate by pressing F3 (Open
+      Declaration)
+      <ul>
+      </ul>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_1">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a><br>
+      <br>
+    </div>
+    <br>
+    <br>
+    <h2><a name="Exercise_2"></a>Exercise 2: Java 8 provided functional
+      interfaces - Generically typed<br>
+    </h2>
+    <p style="margin-left: 40px;">In this exercise, you are going to
+      exercise the usage of generically typed functional interfaces (as
+      opposed to simply typed functional interfaces).<br>
+    </p>
+    <blockquote>
+      <ol>
+        <li><a href="#2.1">Supplier&lt;T&gt;<br>
+          </a></li>
+        <li><a href="#2.2">Consumer&lt;T&gt; and BiConsumer&lt;T,U&gt;<br>
+          </a></li>
+        <li><a href="#2.3">Function&lt;T,R&gt; and
+            BiFunction&lt;T,U,R&gt;<br>
+          </a></li>
+        <li><a href="#2.4">Predicate&lt;T&gt; and BiPredicate&lt;T,U&gt;</a></li>
+        <li><a href="#2.5">UnaryOperator&lt;T&gt; and
+            BinaryOperator&lt;T&gt;</a><br>
+        </li>
+      </ol>
+    </blockquote>
+    <div style="margin-left: 40px;"> <br>
+    </div>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="2.1"></a>(2.1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      Supplier&lt;T&gt;<br>
+    </h3>
+    <div style="margin-left: 40px;"><br>
+      1. Open/Import project <span style="font-weight: bold;">lambda_fi_Supplier</span><br>
+      <ul>
+      </ul>
+    </div>
+    <p style="margin-left: 40px;">2. Study Main.java<br>
+    </p>
+    <div style="margin-left: 40px;">
+      <ul>
+      </ul>
+      <table style="width: 100%; text-align: left;" border="1"
+        cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td style="vertical-align: top;">package mypackage;<br>
+              <br>
+              import java.util.function.Supplier;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp; &nbsp;public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <b>Supplier&lt;String&gt;
+
+
+                supplier1 = () -&gt; "JPassion.com";</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; String result =
+              supplier1.get();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println(result);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<b>
+                Supplier&lt;Integer&gt; supplier2 = () -&gt; 34;</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              printSupplied(supplier2);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp; &nbsp;}<br>
+              <br>
+              &nbsp;&nbsp; &nbsp;public static <b>&lt;T&gt;</b>
+              void&nbsp; printSupplied(<b>Supplier&lt;T&gt;</b>
+              supplier) {<br>
+              &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; System.out.println(<b>supplier.get()</b>);<br>
+              &nbsp;&nbsp; &nbsp;}<br>
+              }</td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      3. Build and run the project<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">JPassion.com<br>
+              34<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <ul>
+      </ul>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_2">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a><br>
+      <br>
+      <br>
+    </div>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="2.2"></a>(2.2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      Consumer&lt;T&gt; and BiConsumer&lt;T,U&gt;<br>
+    </h3>
+    <div style="margin-left: 40px;"><br>
+      1. Open/Import project <b>lambda_fi_Consumer</b><br>
+      <br>
+      2. Study Main.java<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.function.BiConsumer;<br>
+              import java.util.function.Consumer;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <b>Consumer&lt;String&gt;
+
+
+
+                consumer1 = x -&gt; System.out.println(x);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                Consumer&lt;Integer&gt; consumer2 = x -&gt;
+                System.out.println(x*x);</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Call Consumer
+              object directly<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              consumer1.accept("Code with Passion!");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; consumer2.accept(5);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Pass Consumer
+              object to a method as an argument<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              consumeSomething(consumer1, "JPassion");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              consumeSomething(consumer2, 11);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Pass
+              BiConsumer object to a method as an argument<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<b>
+                BiConsumer&lt;String, String&gt; function3 = (x, y)
+                -&gt;
+                System.out.println(x.toUpperCase().concat(y.toUpperCase()));</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                BiConsumer&lt;String, String&gt; function4 = (x, y)
+                -&gt;
+                System.out.println(x.toLowerCase().concat(y.toLowerCase()));</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              consumeSomething2(function3, "JPassion", ".Com");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              consumeSomething2(function4, "Sang", "Shin");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              BiConsumer&lt;String, Integer&gt; function5 = (x, y) -&gt;
+              System.out.println(x + " and " + y);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              consumeSomething2(function5, "Sang", 45);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static &lt;T&gt; void
+              consumeSomething(Consumer&lt;T&gt; consumer, T x) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; consumer.accept(x);<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; public static &lt;T, U&gt; void
+              consumeSomething2(BiConsumer&lt;T, U&gt; consumer, T x, U
+              y) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; consumer.accept(x,
+              y);<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      3. Build and run the project<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">JPassion<br>
+              121<br>
+              JPASSION.COM<br>
+              sangshin<br>
+              Sang and 45<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <ul>
+      </ul>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_2">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a><br>
+      <br>
+      <br>
+    </div>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="2.3"></a>(2.3)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      Function&lt;T,R&gt; and BiFunction&lt;T,U,R&gt;<br>
+    </h3>
+    <div style="margin-left: 40px;"><br>
+      1. Open/Import project <span style="font-weight: bold;">lambda_fi_Function</span><br>
+      <br>
+      2. Study Main.java<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.function.BiFunction;<br>
+              import java.util.function.Function;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <b>Function&lt;String,
+
+
+
+
+
+
+
+
+                String&gt; function1 = x -&gt; x.toUpperCase();</b><b><br>
+              </b><b> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                Function&lt;String, String&gt; function2 = x -&gt;
+                x.toLowerCase();</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Call the
+              functions directly<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; String result1 =
+              function1.apply("Code with Passion!");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println(result1);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; String result2 =
+              function2.apply("Code with Passion!");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println(result2);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Pass the
+              functions to a method as an argument<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              doSomething(function1, "JPassion.com");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              doSomething(function2, "JPassion.com");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <b>Function&lt;String,
+
+
+
+
+
+
+
+
+                Integer&gt; function3 = x -&gt; x.length();</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              doSomething(function3, "JPassion.com");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <b>BiFunction&lt;String,
+
+
+
+
+
+
+
+                String, String&gt; function4 = (x, y) -&gt; x.concat(y);</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              doSomething2(function4, "Sang", "Shin");<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <b>
+                BiFunction&lt;String, String, Integer&gt; function5 =
+                (x, y) -&gt; x.length() + y.length();</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              doSomething2(function5, "Sang", "Shin");<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static &lt;T,R&gt; void
+              doSomething(<b>Function&lt;T, R&gt; function</b>, T
+              something) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println(function.apply(something));<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; public static &lt;T,U,R&gt; void
+              doSomething2(<b>BiFunction&lt;T, U, R&gt; function</b>, T
+              something1, U something2) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println(function.apply(something1,
+              something2));<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              }<br>
+              <br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      3. Build and run the project<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">CODE WITH PASSION!<br>
+              code with passion!<br>
+              JPASSION.COM<br>
+              jpassion.com<br>
+              12<br>
+              SangShin<br>
+              8<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_2">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a><br>
+      <br>
+      <span style="color: rgb(51, 51, 255); font-weight: bold;"></span><br>
+    </div>
+    <br>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="2.4"></a>(2.4)
+
+
+
+
+
+
+
+
+      Predicate&lt;T&gt; and BiPredicate&lt;T,U&gt;<br>
+    </h3>
+    <div style="margin-left: 40px;"><br>
+      1. Open/Import project <span style="font-weight: bold;">lambda_fi_Predicate</span><br>
+      <br>
+      2. Study Main.java<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.function.BiPredicate;<br>
+              import java.util.function.Predicate;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              <b> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                Predicate&lt;Double&gt; predicate1 = x -&gt; x &gt; 10;</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println(predicate1.test(new Double(9)));<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              <b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                Predicate&lt;String&gt; predicate2 = x -&gt; x.length()
+                &gt; 5;</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println(predicate2.test("JPassion.com"));<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              <b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                BiPredicate&lt;Double, Double&gt; predicate3 = (x, y)
+                -&gt; x + y &gt; 10;</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println(predicate3.test(new Double(3), new
+              Double(2)));<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              <b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                BiPredicate&lt;String, Integer&gt; predicate4 = (x, y)
+                -&gt; x.length() &gt; y;</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println(predicate4.test("JPassion.com", 5));<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+    </div>
+    <blockquote> 3. Build and run the project<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">false<br>
+              true<br>
+              false<br>
+              true<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </blockquote>
+    <blockquote>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_2">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a></blockquote>
+    <br>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="2.5"></a>(2.5)
+
+
+
+
+
+
+
+
+      UnaryOperator&lt;T&gt; and BinaryOperator&lt;T&gt;<br>
+    </h3>
+    <div style="margin-left: 40px;"><br>
+      1. Open/Import project <span style="font-weight: bold;">lambda_fi_UnaryOperator</span><br>
+      <br>
+      2. Study Main.java<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.function.BinaryOperator;<br>
+              import java.util.function.UnaryOperator;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <b>
+                UnaryOperator&lt;String&gt; function1 = x -&gt;
+                x.toUpperCase();</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; convert1(function1,
+              "JPassion.com");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <b>UnaryOperator&lt;Integer&gt;
+
+
+
+
+
+
+
+                function2 = x -&gt; x+x;</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; convert1(function2,
+              45);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <b>BinaryOperator&lt;String&gt;
+
+
+
+
+
+
+
+                function3 = (x, y) -&gt; x.concat(y);</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; convert2(function3,
+              "JPassion", ".com");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static &lt;T&gt; void convert1(<b>UnaryOperator&lt;T&gt;
+
+
+
+
+
+
+
+                function</b>, T something) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println(function.apply(something));<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; public static &lt;T&gt; void convert2(<b>BinaryOperator&lt;T&gt;
+
+
+
+
+
+
+
+                function</b>, T something1, T something2) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println(function.apply(something1,
+              something2));<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+    </div>
+    <blockquote>3. Build and run the project<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">JPASSION.COM<br>
+              90<br>
+              JPassion.com<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_2">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a><br>
+    </blockquote>
+    <br>
+    <br>
+    <br>
+    <h2><a name="Exercise_3"></a>Exercise 3: Usage example of Predicate<br>
+    </h2>
+    <br>
+    <div style="margin-left: 40px;">In this exercise, you are going to
+      rewrite code for the operation of "finding items that pass a test
+      criteria within a collection of items" using Predicate functional
+      interface,<br>
+      <ol>
+        <li><a href="#2.3">Embed test code in a for loop (Java 7)<br>
+          </a></li>
+        <li><a href="#3.2">Use predicate with specific type (Java 8)<br>
+          </a></li>
+        <li><a href="#3.3">Use predicate with generic type (Java 8)</a></li>
+        <li><a href="#3.4">Use stream (Java 8)</a><br>
+        </li>
+      </ol>
+    </div>
+    <p style="margin-left: 40px;"></p>
+    <ul>
+      <ul>
+      </ul>
+      <ol>
+      </ol>
+    </ul>
+    <br>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="3.1"></a>(3.1)
+
+
+
+
+
+
+
+
+      Embed test code in a for loop (Java 7)<br>
+    </h3>
+    <div style="margin-left: 40px;"> <br>
+      1. Open/Import project <span style="font-weight: bold;">lambda_fi_Predicate_refactoring_initial</span><br>
+      <ul>
+      </ul>
+    </div>
+    <p style="margin-left: 40px;">2. Study Main.java<br>
+    </p>
+    <blockquote>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.ArrayList;<br>
+              import java.util.Arrays;<br>
+              import java.util.List;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Create test data<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Person[] personArray
+              = { new Person("Jong", 5), new Person("Jon", 12),<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; new Person("Jon", 17), new
+              Person("Mary", 13) };<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              people = Arrays.asList(personArray);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // #1: call methods
+              which embeds test code in a for loop<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              peopleResult = findPeopleByName(people, "Jon");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#1a: ", peopleResult);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp;<b> // #1: Embed test code in a for loop</b><br>
+              &nbsp;&nbsp;&nbsp; public static List&lt;Person&gt;
+              findPeopleByName(List&lt;Person&gt; people, String name) {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              result = new ArrayList&lt;Person&gt;();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person p :
+              people) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <b>
+                if (p.getName().equals(name)) {</b><b><br>
+              </b><b> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; result.add(p);</b><b><br>
+              </b><b> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; }</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return result;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; // Utility method to display the result<br>
+              &nbsp;&nbsp;&nbsp; public static void displayResult(String
+              prefix, List&lt;Person&gt; results) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.print(prefix);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person person :
+              results) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.print(person.getName() + " ");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println();<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </blockquote>
+    <blockquote>3. Person.java<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              public class Person {<br>
+              &nbsp; private String name;<br>
+              &nbsp; private int age;<br>
+              <br>
+              &nbsp; public Person (String name, int age){<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.name = name;<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.age = age;<br>
+              &nbsp; }<br>
+              &nbsp;<br>
+              &nbsp; public String getName() {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return name;<br>
+              &nbsp; }<br>
+              <br>
+              &nbsp; public void setName(String name) {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.name = name;<br>
+              &nbsp; }<br>
+              <br>
+              &nbsp; public int getAge() {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return age;<br>
+              &nbsp; }<br>
+              <br>
+              &nbsp; public void setAge(int age) {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.age = age;<br>
+              &nbsp; }<br>
+              <br>
+              &nbsp; public String toString(){<br>
+              &nbsp;&nbsp;&nbsp; &nbsp; return name;<br>
+              &nbsp; }<br>
+              <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      4. Build and run the project<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">----&gt;#1a: Jon Jon <br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      Now if you want to find people with another test criteria, for
+      example, to find people whose age is greater than 10, you would
+      have to write another method.<br>
+      <br>
+      5. Add the code<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.ArrayList;<br>
+              import java.util.Arrays;<br>
+              import java.util.List;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Create test data<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Person[] personArray
+              = { new Person("Jong", 5), new Person("Jon", 12),<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; new Person("Jon", 17), new
+              Person("Mary", 13) };<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              people = Arrays.asList(personArray);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // #1: call methods
+              which embeds test code in a for loop<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              peopleResult = findPeopleByName(people, "Jon");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#1a: ", peopleResult);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <b>peopleResult =
+                findPeopleByAge(people, 10);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                displayResult("----&gt;#1b: ", peopleResult);</b><br>
+              <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; // #1: Embed test code in a for loop<br>
+              &nbsp;&nbsp;&nbsp; public static List&lt;Person&gt;
+              findPeopleByName(List&lt;Person&gt; people, String name) {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              result = new ArrayList&lt;Person&gt;();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person p :
+              people) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              if (p.getName().equals(name)) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; result.add(p);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return result;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;<b>&nbsp; public static List&lt;Person&gt;
+                findPeopleByAge(List&lt;Person&gt; people, int age) {</b><b><br>
+              </b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                List&lt;Person&gt; result = new
+                ArrayList&lt;Person&gt;();</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person p
+                : people) {</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; if (p.getAge() &gt; 10) {</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; result.add(p);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; }</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return
+                result;</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; }</b><br>
+              <br>
+              &nbsp;&nbsp;&nbsp; // Utility method to display the result<br>
+              &nbsp;&nbsp;&nbsp; public static void displayResult(String
+              prefix, List&lt;Person&gt; results) {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              System.out.print(prefix);<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              results.forEach((person) -&gt;
+              System.out.print(person.getName()));<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              System.out.println();<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      6. Build and run the project<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">----&gt;#1a: Jon Jon <br>
+              ----&gt;#1b: Jon Jon Mary <br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      The problem of this approach is that every time you perform a find
+      operation with a new test criteria, you would have to write
+      another method which embed the test logic.&nbsp; <br>
+      <br>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_3">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a><br>
+    </blockquote>
+    <div style="margin-left: 40px;">
+      <ul>
+      </ul>
+      <br>
+      <br>
+    </div>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="3.2"></a>(3.2)
+Use
+
+
+
+
+
+
+
+
+      predicate with specific type (Java 8)<br>
+    </h3>
+    <div style="margin-left: 40px;"><br>
+      1. Add code in Main.java<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.ArrayList;<br>
+              import java.util.Arrays;<br>
+              import java.util.List;<br>
+              import java.util.function.Predicate;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Create test data<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Person[] personArray
+              = { new Person("Jong", 5), new Person("Jon", 12),<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; new Person("Jon", 17), new
+              Person("Mary", 13) };<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              people = Arrays.asList(personArray);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // #1: call methods
+              which embeds test code in a for loop<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              peopleResult = findPeopleByName(people, "Jon");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#1a: ", peopleResult);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; peopleResult =
+              findPeopleByAge(people, 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#1b: ", peopleResult);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<b> // #2: call
+                methods which use predicate with specific type</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; peopleResult
+                = finePeople(people, <font color="#ff0000">person -&gt;
+                  person.getName().equals("Jon")</font>);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                displayResult("----&gt;#2a: ", peopleResult);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; peopleResult
+                = finePeople(people, <font color="#ff0000">person -&gt;
+                  person.getAge() &gt; 10</font>);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                displayResult("----&gt;#2b: ", peopleResult);</b><b></b><b><br>
+              </b><br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; // #1: Embed test code in a for loop<br>
+              &nbsp;&nbsp;&nbsp; public static List&lt;Person&gt;
+              findPeopleByName(List&lt;Person&gt; people, String name) {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              result = new ArrayList&lt;Person&gt;();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person p :
+              people) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              if (p.getName().equals(name)) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; result.add(p);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return result;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static List&lt;Person&gt;
+              findPeopleByAge(List&lt;Person&gt; people, int age) {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              result = new ArrayList&lt;Person&gt;();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person p :
+              people) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              if (p.getAge() &gt; 10) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; result.add(p);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return result;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; // Utility method to display the result<br>
+              &nbsp;&nbsp;&nbsp; public static void displayResult(String
+              prefix, List&lt;Person&gt; results) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.print(prefix);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person person :
+              results) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.print(person.getName() + " ");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println();<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp;<b> // #2: Use predicate with specific
+                type</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; public static List&lt;Person&gt;
+                finePeople(List&lt;Person&gt; people,</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; <font color="#ff0000">Predicate&lt;Person&gt;
+
+
+
+
+
+
+                  aPredicate</font>) {</b><b><br>
+              </b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                List&lt;Person&gt; result = new
+                ArrayList&lt;Person&gt;();</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person p
+                : people) {</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; if (<font color="#ff0000">aPredicate.test(p)</font>)
+                {</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; result.add(p);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; }</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return
+                result;</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; }</b><br>
+              <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      2. Build and run <br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">----&gt;#1a: Jon Jon <br>
+              ----&gt;#1b: Jon Jon Mary <br>
+              <b>----&gt;#2a: Jon Jon </b><b><br>
+              </b><b>----&gt;#2b: Jon Jon Mary </b><br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      Now if you want to find people whose name is "Jon" and whose age
+      is greater than 10, all you have to do is to create another
+      predicate and pass it to "findPeople(..)" method as an argument.<br>
+      <br>
+      3. Modify the code<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.ArrayList;<br>
+              import java.util.Arrays;<br>
+              import java.util.List;<br>
+              import java.util.function.Predicate;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Create test data<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Person[] personArray
+              = { new Person("Jong", 5), new Person("Jon", 12),<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; new Person("Jon", 17), new
+              Person("Mary", 13) };<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              people = Arrays.asList(personArray);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // #1: call methods
+              which embeds test code in a for loop<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              peopleResult = findPeopleByName(people, "Jon");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#1a: ", peopleResult);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; peopleResult =
+              findPeopleByAge(people, 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#1b: ", peopleResult);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // #2: call methods
+              which use predicate with specific type<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; peopleResult =
+              finePeople(people, person -&gt;
+              person.getName().equals("Jon"));<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#2a: ", peopleResult);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; peopleResult =
+              finePeople(people, person -&gt; person.getAge() &gt; 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#2b: ", peopleResult);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <b>peopleResult =
+                finePeople(people, <font color="#ff0000">person -&gt;
+                  person.getName()</font></b><font color="#ff0000"><b><br>
+                </b></font><b><font color="#ff0000">&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp; .startsWith("J") &amp;&amp;
+                  person.getAge() &gt; 10</font>);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                displayResult("----&gt;#2c: ", peopleResult);</b><br>
+              <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; // #1: Embed test code in a for loop<br>
+              &nbsp;&nbsp;&nbsp; public static List&lt;Person&gt;
+              findPeopleByName(List&lt;Person&gt; people, String name) {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              result = new ArrayList&lt;Person&gt;();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person p :
+              people) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              if (p.getName().equals(name)) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; result.add(p);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return result;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static List&lt;Person&gt;
+              findPeopleByAge(List&lt;Person&gt; people, int age) {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              result = new ArrayList&lt;Person&gt;();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person p :
+              people) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              if (p.getAge() &gt; 10) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; result.add(p);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return result;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; // Utility method to display the result<br>
+              &nbsp;&nbsp;&nbsp; public static void displayResult(String
+              prefix, List&lt;Person&gt; results) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.print(prefix);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person person :
+              results) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.print(person.getName() + " ");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println();<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; // #2: Use predicate with specific type<br>
+              &nbsp;&nbsp;&nbsp; public static List&lt;Person&gt;
+              finePeople(List&lt;Person&gt; people,<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              Predicate&lt;Person&gt; aPredicate) {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              result = new ArrayList&lt;Person&gt;();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person p :
+              people) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              if (aPredicate.test(p)) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; result.add(p);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return result;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_3">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a><br>
+      <br>
+      <br>
+      <br>
+    </div>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="3.3"></a>(3.3)
+
+
+
+
+
+
+
+
+      Use predicate with generic type (Java 8)<br>
+    </h3>
+    <div style="margin-left: 40px;"> <br>
+      1. Modify code in Main.java<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.ArrayList;<br>
+              import java.util.Arrays;<br>
+              import java.util.List;<br>
+              import java.util.function.Predicate;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Create test data<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Person[] personArray
+              = { new Person("Jong", 5), new Person("Jon", 12),<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; new Person("Jon", 17), new
+              Person("Mary", 13) };<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              people = Arrays.asList(personArray);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // #1: call methods
+              which embeds test code in a for loop<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              peopleResult = findPeopleByName(people, "Jon");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#1a: ", peopleResult);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; peopleResult =
+              findPeopleByAge(people, 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#1b: ", peopleResult);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // #2: call methods
+              which use predicate with specific type<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; peopleResult =
+              finePeople(people, person -&gt;
+              person.getName().equals("Jon"));<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#2a: ", peopleResult);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; peopleResult =
+              finePeople(people, person -&gt; person.getAge() &gt; 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#2b: ", peopleResult);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; peopleResult =
+              finePeople(people, person -&gt; person.getName()<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; .startsWith("J") &amp;&amp;
+              person.getAge() &gt; 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#2c: ", peopleResult);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<b>&nbsp; // #3: call
+                methods which use predicate with generic type</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; peopleResult
+                = find(people, person -&gt;
+                person.getName().equals("Jon"));</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                displayResult("----&gt;#3a: ", peopleResult);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; peopleResult
+                = find(people, person -&gt; person.getAge() &gt; 10);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                displayResult("----&gt;#3b: ", peopleResult);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; peopleResult
+                = find(people, person -&gt;
+                person.getName().startsWith("J")</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &amp;&amp;
+                person.getAge() &gt; 10);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                displayResult("----&gt;#3c: ", peopleResult);</b><br>
+              <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; // #1: Embed test code in a for loop<br>
+              &nbsp;&nbsp;&nbsp; public static List&lt;Person&gt;
+              findPeopleByName(List&lt;Person&gt; people, String name) {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              result = new ArrayList&lt;Person&gt;();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person p :
+              people) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              if (p.getName().equals(name)) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; result.add(p);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return result;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static List&lt;Person&gt;
+              findPeopleByAge(List&lt;Person&gt; people, int age) {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              result = new ArrayList&lt;Person&gt;();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person p :
+              people) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              if (p.getAge() &gt; 10) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; result.add(p);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return result;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; // Utility method to display the result<br>
+              &nbsp;&nbsp;&nbsp; public static void displayResult(String
+              prefix, List&lt;Person&gt; results) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.print(prefix);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person person :
+              results) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.print(person.getName() + " ");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println();<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; // #2: Use predicate with specific type<br>
+              &nbsp;&nbsp;&nbsp; public static List&lt;Person&gt;
+              finePeople(List&lt;Person&gt; people,<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              Predicate&lt;Person&gt; aPredicate) {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              result = new ArrayList&lt;Person&gt;();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person p :
+              people) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              if (aPredicate.test(p)) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; result.add(p);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return result;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;<b>&nbsp; // #3: Use predicate with generic
+                type</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; public static &lt;T&gt;
+                List&lt;T&gt; find(List&lt;T&gt; myList,
+                Predicate&lt;T&gt; aPredicate) {</b><b><br>
+              </b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;T&gt;
+                result = new ArrayList&lt;T&gt;();</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (T item :
+                myList) {</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; if (aPredicate.test(item)) {</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; result.add(item);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; }</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return
+                result;</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; }</b><br>
+              <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      2. Build and run<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">----&gt;#1a: Jon Jon <br>
+              ----&gt;#1b: Jon Jon Mary <br>
+              ----&gt;#2a: Jon Jon <br>
+              ----&gt;#2b: Jon Jon Mary <br>
+              ----&gt;#2c: Jon Jon <br>
+              <b>----&gt;#3a: Jon Jon </b><b><br>
+              </b><b>----&gt;#3b: Jon Jon Mary </b><b><br>
+              </b><b>----&gt;#3c: Jon Jon </b><br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      Now if you want to perform find operation using a different type,
+      all you have to do is to create a new predicate using a different
+      type. We are going to add Fruit as a new example type.<br>
+      <br>
+      3. Add Fruit.java.<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              public class Fruit {<br>
+              &nbsp; private String name;<br>
+              &nbsp; private int quantity;<br>
+              <br>
+              &nbsp; public Fruit (String name, int quantity){<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.name = name;<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.quantity = quantity;<br>
+              &nbsp; }<br>
+              &nbsp;<br>
+              &nbsp; public String getName() {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return name;<br>
+              &nbsp; }<br>
+              <br>
+              &nbsp; public void setName(String name) {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.name = name;<br>
+              &nbsp; }<br>
+              <br>
+              &nbsp; public int getQuantity() {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return quantity;<br>
+              &nbsp; }<br>
+              <br>
+              &nbsp; public void setQuantity(int quantity) {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.quantity = quantity;<br>
+              &nbsp; }<br>
+              <br>
+              &nbsp; public String toString(){<br>
+              &nbsp;&nbsp;&nbsp; &nbsp; return name;<br>
+              &nbsp; }<br>
+              <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      4. Add/modify Main.java.&nbsp; Note that there is no need to
+      change "find(List&lt;T&gt; myList, Predicate&lt;T&gt; aPredicate)"
+      method because it uses the generic type.<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.ArrayList;<br>
+              import java.util.Arrays;<br>
+              import java.util.List;<br>
+              import java.util.function.Predicate;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Create test data<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Person[] personArray
+              = { new Person("Jong", 5), new Person("Jon", 12),<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; new Person("Jon", 17), new
+              Person("Mary", 13) };<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              people = Arrays.asList(personArray);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;<b>&nbsp;&nbsp; Fruit[]
+                fruitArray = { new Fruit("Apple", 11), new
+                Fruit("Orange", 22),</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; new
+                Fruit("Banana", 33) };</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                List&lt;Fruit&gt; fruits = Arrays.asList(fruitArray);</b><b><br>
+              </b><br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // #1: call methods
+              which embeds test code in a for loop<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              peopleResult = findPeopleByName(people, "Jon");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#1a: ", peopleResult);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; peopleResult =
+              findPeopleByAge(people, 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#1b: ", peopleResult);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // #2: call methods
+              which use predicate with specific type<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; peopleResult =
+              finePeople(people, person -&gt;
+              person.getName().equals("Jon"));<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#2a: ", peopleResult);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; peopleResult =
+              finePeople(people, person -&gt; person.getAge() &gt; 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#2b: ", peopleResult);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; peopleResult =
+              finePeople(people, person -&gt; person.getName()<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; .startsWith("J") &amp;&amp;
+              person.getAge() &gt; 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#2c: ", peopleResult);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // #3: call methods
+              which use predicate with generic type<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; peopleResult =
+              find(people, person -&gt; person.getName().equals("Jon"));<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#3a: ", peopleResult);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; peopleResult =
+              find(people, person -&gt; person.getAge() &gt; 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#3b: ", peopleResult);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; peopleResult =
+              find(people, person -&gt; person.getName().startsWith("J")<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; &amp;&amp; person.getAge() &gt; 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#3c: ", peopleResult);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<b>&nbsp; List&lt;Fruit&gt;
+                fruitResult = find(fruits,</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; fruit -&gt;
+                fruit.getName().equals("Apple"));</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                displayResult("----&gt;#3d: ", fruitResult);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; fruitResult =
+                find(fruits, fruit -&gt; fruit.getQuantity() &gt; 10);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                displayResult("----&gt;#3e: ", fruitResult);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; fruitResult =
+                find(fruits, fruit -&gt; fruit.getName().startsWith("A")</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &amp;&amp;
+                fruit.getQuantity() &gt; 10);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                displayResult("----&gt;#3f: ", fruitResult);</b><br>
+              <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; // #1: Embed test code in a for loop<br>
+              &nbsp;&nbsp;&nbsp; public static List&lt;Person&gt;
+              findPeopleByName(List&lt;Person&gt; people, String name) {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              result = new ArrayList&lt;Person&gt;();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person p :
+              people) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              if (p.getName().equals(name)) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; result.add(p);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return result;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static List&lt;Person&gt;
+              findPeopleByAge(List&lt;Person&gt; people, int age) {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              result = new ArrayList&lt;Person&gt;();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person p :
+              people) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              if (p.getAge() &gt; 10) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; result.add(p);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return result;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;<b>&nbsp; // Utility method to display list of
+                people or fruits</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; public static &lt;T&gt; void
+                displayResult(String prefix, List&lt;T&gt; results) {</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                System.out.print(prefix);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (T item :
+                results) {</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; System.out.print(item+ " ");</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                System.out.println();</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; }</b><br>
+              <br>
+              &nbsp;&nbsp;&nbsp; // #2: Use predicate with specific type<br>
+              &nbsp;&nbsp;&nbsp; public static List&lt;Person&gt;
+              finePeople(List&lt;Person&gt; people,<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              Predicate&lt;Person&gt; aPredicate) {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              result = new ArrayList&lt;Person&gt;();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person p :
+              people) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              if (aPredicate.test(p)) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; result.add(p);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return result;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; // #3: Use predicate with generic type<br>
+              &nbsp;&nbsp;&nbsp; public static &lt;T&gt; List&lt;T&gt;
+              find(List&lt;T&gt; myList, Predicate&lt;T&gt; aPredicate)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;T&gt; result
+              = new ArrayList&lt;T&gt;();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (T item :
+              myList) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              if (aPredicate.test(item)) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; result.add(item);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return result;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      5. Build and run the project<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">----&gt;#1a: Jon Jon <br>
+              ----&gt;#1b: Jon Jon Mary <br>
+              ----&gt;#2a: Jon Jon <br>
+              ----&gt;#2b: Jon Jon Mary <br>
+              ----&gt;#2c: Jon Jon <br>
+              ----&gt;#3a: Jon Jon <br>
+              ----&gt;#3b: Jon Jon Mary <br>
+              ----&gt;#3c: Jon Jon <br>
+              <b>----&gt;#3d: Apple </b><b><br>
+              </b><b>----&gt;#3e: Apple Orange Banana </b><b><br>
+              </b><b>----&gt;#3f: Apple </b><br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_3">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a><br>
+    </div>
+    <p><br>
+    </p>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="3.4"></a>(3.4)
+
+
+
+
+
+
+
+
+      Use stream<br>
+    </h3>
+    <div style="margin-left: 40px;"> <br>
+      1. Add code to Main.java<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.ArrayList;<br>
+              import java.util.Arrays;<br>
+              import java.util.List;<br>
+              import java.util.function.Predicate;<br>
+              import java.util.stream.Stream;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Create test data<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Person[] personArray
+              = { new Person("Jong", 5), new Person("Jon", 12),<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; new Person("Jon", 17), new
+              Person("Mary", 13) };<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              people = Arrays.asList(personArray);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Fruit[] fruitArray =
+              { new Fruit("Apple", 11), new Fruit("Orange", 22),<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; new Fruit("Banana", 33) };<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Fruit&gt;
+              fruits = Arrays.asList(fruitArray);<br>
+              <br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // #1: call methods
+              which embeds test code in a for loop<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              peopleResult = findPeopleByName(people, "Jon");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#1a: ", peopleResult);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; peopleResult =
+              findPeopleByAge(people, 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#1b: ", peopleResult);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // #2: call methods
+              which use predicate with specific type<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; peopleResult =
+              finePeople(people, person -&gt;
+              person.getName().equals("Jon"));<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#2a: ", peopleResult);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; peopleResult =
+              finePeople(people, person -&gt; person.getAge() &gt; 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#2b: ", peopleResult);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; peopleResult =
+              finePeople(people, person -&gt; person.getName()<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; .startsWith("J") &amp;&amp;
+              person.getAge() &gt; 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#2c: ", peopleResult);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // #3: call methods
+              which use predicate with generic type<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; peopleResult =
+              find(people, person -&gt; person.getName().equals("Jon"));<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#3a: ", peopleResult);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; peopleResult =
+              find(people, person -&gt; person.getAge() &gt; 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#3b: ", peopleResult);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; peopleResult =
+              find(people, person -&gt; person.getName().startsWith("J")<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; &amp;&amp; person.getAge() &gt; 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#3c: ", peopleResult);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Fruit&gt;
+              fruitResult = find(fruits,<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; fruit -&gt;
+              fruit.getName().equals("Apple"));<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#3d: ", fruitResult);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; fruitResult =
+              find(fruits, fruit -&gt; fruit.getQuantity() &gt; 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#3e: ", fruitResult);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; fruitResult =
+              find(fruits, fruit -&gt; fruit.getName().startsWith("A")<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; &amp;&amp; fruit.getQuantity() &gt;
+              10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#3f: ", fruitResult);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<b>&nbsp; // #4: Use a
+                stream</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                Stream&lt;Person&gt; resultPeople =
+                people.stream().filter(</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; person -&gt;
+                person.getAge() &gt; 10);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                System.out.print("----&gt;#4a: ");</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                resultPeople.forEach(person -&gt;
+                System.out.print(person.getName() + " "));</b><b><br>
+              </b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                Stream&lt;Fruit&gt; resultFruits =
+                fruits.stream().filter(</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; fruit -&gt;
+                fruit.getQuantity() &gt; 10);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                System.out.print("\n----&gt;#4b: ");</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                resultFruits.forEach(fruit -&gt;
+                System.out.print(fruit.getName() + " "));</b><b><br>
+              </b><br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; // #1: Embed test code in a for loop<br>
+              &nbsp;&nbsp;&nbsp; public static List&lt;Person&gt;
+              findPeopleByName(List&lt;Person&gt; people, String name) {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              result = new ArrayList&lt;Person&gt;();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person p :
+              people) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              if (p.getName().equals(name)) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; result.add(p);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return result;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static List&lt;Person&gt;
+              findPeopleByAge(List&lt;Person&gt; people, int age) {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              result = new ArrayList&lt;Person&gt;();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person p :
+              people) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              if (p.getAge() &gt; 10) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; result.add(p);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return result;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; // Utility method to display list of
+              people or fruits<br>
+              &nbsp;&nbsp;&nbsp; public static &lt;T&gt; void
+              displayResult(String prefix, List&lt;T&gt; results) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.print(prefix);<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              results.forEach((T item) -&gt; System.out.print(item));<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println();<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; // #2: Use predicate with specific type<br>
+              &nbsp;&nbsp;&nbsp; public static List&lt;Person&gt;
+              finePeople(List&lt;Person&gt; people,<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              Predicate&lt;Person&gt; aPredicate) {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              result = new ArrayList&lt;Person&gt;();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person p :
+              people) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              if (aPredicate.test(p)) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; result.add(p);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return result;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; // #3: Use predicate with generic type<br>
+              &nbsp;&nbsp;&nbsp; public static &lt;T&gt; List&lt;T&gt;
+              find(List&lt;T&gt; myList, Predicate&lt;T&gt; aPredicate)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;T&gt; result
+              = new ArrayList&lt;T&gt;();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (T item :
+              myList) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              if (aPredicate.test(item)) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; result.add(item);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return result;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      2. Build and run the project<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">----&gt;#1a: Jon Jon <br>
+              ----&gt;#1b: Jon Jon Mary <br>
+              ----&gt;#2a: Jon Jon <br>
+              ----&gt;#2b: Jon Jon Mary <br>
+              ----&gt;#2c: Jon Jon <br>
+              ----&gt;#3a: Jon Jon <br>
+              ----&gt;#3b: Jon Jon Mary <br>
+              ----&gt;#3c: Jon Jon <br>
+              ----&gt;#3d: Apple <br>
+              ----&gt;#3e: Apple Orange Banana <br>
+              ----&gt;#3f: Apple <br>
+              <b>----&gt;#4a: Jon Jon Mary </b><b><br>
+              </b><b>----&gt;#4b: Apple Orange Banana </b><br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_3">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a><br>
+      <br>
+      <br>
+      <br>
+    </div>
+    <p> </p>
+    <h2><a name="Exercise_4"></a>Exercise 4: Usage example of Function<br>
+    </h2>
+    <br>
+    <div style="margin-left: 40px;">In this exercise, you are going to
+      rewrite code for "converting items in a collection" using Function
+      functional interface,
+      <ol>
+        <li><a href="#4.1">Embed conversion code in a for loop (Java 7)<br>
+          </a></li>
+        <li><a href="#4.2">Use Function with specific type (Java 8)<br>
+          </a></li>
+        <li><a href="#4.3">Use Function with generic type (Java 8)</a></li>
+        <li><a href="#4.4">Use stream (Java 8)</a><br>
+        </li>
+      </ol>
+      <br>
+      <br>
+    </div>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="4.1"></a>(4.1)
+
+
+
+
+
+
+
+
+      Embed conversion code in a for loop (java 7)<br>
+    </h3>
+    <br>
+    <div style="margin-left: 40px;"> 1. Open/Import <span
+        style="font-weight: bold;">lambda_fi_Function_refactoring_initial</span><br>
+      <ul>
+      </ul>
+    </div>
+    <p style="margin-left: 40px;">2. Study Main.java<br>
+    </p>
+    <blockquote>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.Arrays;<br>
+              import java.util.List;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Create test data<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Person[] personArray
+              = { new Person("Jong", 5), new Person("Jon", 12),<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; new Person("Mary", 13) };<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              people = Arrays.asList(personArray);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <b>// #1: call
+                methods which embeds conversion code in a for loop</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                convertPeopleUppercase(people);</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#1a: ", people);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<b>&nbsp;
+                convertPeopleLowercase(people);</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#1a: ", people);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;<b>&nbsp; // #1: Embed conversion code in a
+                for loop</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; public static void
+                convertPeopleUppercase(List&lt;Person&gt; people) {</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person p
+                : people) {</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; <font color="#ff0000">p.setName(p.getName().toUpperCase());</font></b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; }</b><b><br>
+              </b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; public static void
+                convertPeopleLowercase(List&lt;Person&gt; people) {</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person p
+                : people) {</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; <font color="#ff0000">p.setName(p.getName().toLowerCase());</font></b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; }</b><br>
+              <br>
+              &nbsp; // Utility method to display the result<br>
+              &nbsp; public static void displayResult(String prefix,
+              List&lt;Person&gt; results) {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.print(prefix);<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (Person person :
+              results) {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              System.out.print(person.getName() + " ");<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println();<br>
+              &nbsp; }<br>
+              <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </blockquote>
+    <p style="margin-left: 40px;">3. Person.java<br>
+    </p>
+    <blockquote>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              public class Person {<br>
+              &nbsp; private String name;<br>
+              &nbsp; private int age;<br>
+              <br>
+              &nbsp; public Person (String name, int age){<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.name = name;<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.age = age;<br>
+              &nbsp; }<br>
+              &nbsp;<br>
+              &nbsp; public String getName() {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return name;<br>
+              &nbsp; }<br>
+              <br>
+              &nbsp; public void setName(String name) {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.name = name;<br>
+              &nbsp; }<br>
+              <br>
+              &nbsp; public int getAge() {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return age;<br>
+              &nbsp; }<br>
+              <br>
+              &nbsp; public void setAge(int age) {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.age = age;<br>
+              &nbsp; }<br>
+              <br>
+              &nbsp; public String toString(){<br>
+              &nbsp;&nbsp;&nbsp; &nbsp; return name;<br>
+              &nbsp; }<br>
+              <br>
+              }<br>
+              <br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </blockquote>
+    <blockquote>4. Build and run<br>
+    </blockquote>
+    <blockquote>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">----&gt;#1a: JONG JON MARY <br>
+              ----&gt;#1a: jong jon mary <br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </blockquote>
+    <p style="margin-left: 40px;"></p>
+    <div style="margin-left: 40px;">
+      <ul>
+      </ul>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_4">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a><br>
+      <br>
+      <br>
+    </div>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="4.2"></a>(4.2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      Use Function with specific type (Java 8)<br>
+    </h3>
+    <div style="margin-left: 40px;"> <br>
+      1. Add code in Main.java<br>
+      <br>
+      <table style="width: 100%; text-align: left;" border="1"
+        cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td style="vertical-align: top;">package mypackage;<br>
+              <br>
+              import java.util.Arrays;<br>
+              import java.util.List;<br>
+              import java.util.function.Function;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Create test data<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Person[] personArray
+              = { new Person("Jong", 5), new Person("Jon", 12),<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; new Person("Mary", 13) };<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              people = Arrays.asList(personArray);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // #1: call methods
+              which embeds conversion code in a for loop<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              convertPeopleUppercase(people);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#1a: ", people);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              convertPeopleLowercase(people);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#1a: ", people);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; <b>&nbsp;&nbsp;&nbsp; // #2: call
+                methods which use Function with specific type</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                Function&lt;Person, Person&gt; aFunction1 = person -&gt;
+                {</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;
+                person.setName(person.getName().toUpperCase());</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; return person;</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; };</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                convertPeople(people, aFunction1);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; </b>displayResult("----&gt;#2a:
+
+
+
+
+
+
+              ", people);<b><br>
+              </b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                Function&lt;Person, Person&gt; aFunction2 = person -&gt;
+                {</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;
+                person.setName(person.getName().toLowerCase());</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; return person;</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; };</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                convertPeople(people, aFunction2);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; </b>
+              displayResult("----&gt;#2b: ", people);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; // #1: Embed conversion code in a for
+              loop<br>
+              &nbsp;&nbsp;&nbsp; public static void
+              convertPeopleUppercase(List&lt;Person&gt; people) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person p :
+              people) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              p.setName(p.getName().toUpperCase());<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void
+              convertPeopleLowercase(List&lt;Person&gt; people) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person p :
+              people) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              p.setName(p.getName().toLowerCase());<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;<b>&nbsp;&nbsp; // #2: Use Function with specific
+                type</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; public static void
+                convertPeople(List&lt;Person&gt; people,</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; <font color="#ff0000">Function&lt;Person,
+
+
+
+
+
+
+                  Person&gt; aFunction</font>) {</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person p
+                : people) {</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; aFunction.apply(p);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; }</b><br>
+              <br>
+              &nbsp;&nbsp;&nbsp; // Utility method to display the result<br>
+              &nbsp;&nbsp;&nbsp; public static void displayResult(String
+              prefix, List&lt;Person&gt; results) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.print(prefix);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person person :
+              results) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.print(person.getName() + " ");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println();<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      2. Build and run<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">----&gt;#1a: JONG JON MARY <br>
+              ----&gt;#1a: jong jon mary <br>
+              <b>----&gt;#2a: JONG JON MARY </b><b><br>
+              </b><b>----&gt;#2b: jong jon mary </b><br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      Now if you want to perform another conversion, all you have to do
+      is to create another functionand pass it to "convertPeople(..)"
+      method as an argument.<br>
+      <br>
+      3. Add code to Main.java<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.Arrays;<br>
+              import java.util.List;<br>
+              import java.util.function.Function;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Create test data<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Person[] personArray
+              = { new Person("Jong", 5), new Person("Jon", 12),<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; new Person("Mary", 13) };<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              people = Arrays.asList(personArray);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // #1: call methods
+              which embeds conversion code in a for loop<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              convertPeopleUppercase(people);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#1a: ", people);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              convertPeopleLowercase(people);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#1a: ", people);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // #2: call methods
+              which use Function with specific type<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Function&lt;Person,
+              Person&gt; aFunction1 = person -&gt; {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              person.setName(person.getName().toUpperCase());<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              return person;<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; };<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              convertPeople(people, aFunction1);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#2a: ", people);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Function&lt;Person,
+              Person&gt; aFunction2 = person -&gt; {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              person.setName(person.getName().toLowerCase());<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              return person;<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; };<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              convertPeople(people, aFunction2);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#2b: ", people);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;<b>&nbsp;&nbsp;
+                Function&lt;Person, Person&gt; aFunction3 = <font
+                  color="#ff0000">person -&gt; {</font></b><font
+                color="#ff0000"><b><br>
+                </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;
+                  person.setName(person.getName().toLowerCase());</b><b><br>
+                </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp; person.setAge(person.getAge() +
+                  10);</b><b><br>
+                </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp; return person;</b><b><br>
+                </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; };</b></font><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                convertPeople(people, aFunction3);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                displayResult("----&gt;#2c: ", people);</b><b><br>
+              </b><br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; ...<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      4. Build and run the project<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">----&gt;#1a: JONG JON MARY <br>
+              ----&gt;#1a: jong jon mary <br>
+              ----&gt;#2a: JONG JON MARY <br>
+              ----&gt;#2b: jong jon mary <br>
+              <b>----&gt;#2c: jong jon mary </b><br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+    </div>
+    <div style="margin-left: 40px;">&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp; <a href="#Exercise_4">return to top of exercise</a>,
+      <a href="#Tutorial_Exercises">return to top</a><br>
+      <br>
+    </div>
+    <div style="margin-left: 40px;"> <br>
+    </div>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="4.3"></a>(4.3)
+Use
+
+
+
+
+
+
+
+
+      Function with generic type (Java 8)<br>
+    </h3>
+    <div style="margin-left: 40px;"> <br>
+      1. Add/Modify code in Main.java<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.Arrays;<br>
+              import java.util.List;<br>
+              import java.util.function.Function;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Create test data<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Person[] personArray
+              = { new Person("Jong", 5), new Person("Jon", 12),<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; new Person("Mary", 13) };<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              people = Arrays.asList(personArray);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // #1: call methods
+              which embeds conversion code in a for loop<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              convertPeopleUppercase(people);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#1a: ", people);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              convertPeopleLowercase(people);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#1a: ", people);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // #2: call methods
+              which use Function with specific type<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Function&lt;Person,
+              Person&gt; aFunction1 = person -&gt; {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              person.setName(person.getName().toUpperCase());<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              return person;<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; };<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              convertPeople(people, aFunction1);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#2a: ", people);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Function&lt;Person,
+              Person&gt; aFunction2 = person -&gt; {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              person.setName(person.getName().toLowerCase());<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              return person;<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; };<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              convertPeople(people, aFunction2);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#2b: ", people);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Function&lt;Person,
+              Person&gt; aFunction3 = person -&gt; {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              person.setName(person.getName().toLowerCase());<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              person.setAge(person.getAge() + 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              return person;<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; };<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              convertPeople(people, aFunction3);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#2c: ", people);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; <b>&nbsp;&nbsp;&nbsp; // #3: call
+                methods which use Function with generic type</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                convert(people, aFunction1);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                displayResult("----&gt;#3a: ", people);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                convert(people, aFunction2);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                displayResult("----&gt;#3b: ", people);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                convert(people, aFunction3);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                displayResult("----&gt;#3c: ", people);</b><br>
+              <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; // #1: Embed conversion code in a for
+              loop<br>
+              &nbsp;&nbsp;&nbsp; public static void
+              convertPeopleUppercase(List&lt;Person&gt; people) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person p :
+              people) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              p.setName(p.getName().toUpperCase());<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void
+              convertPeopleLowercase(List&lt;Person&gt; people) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person p :
+              people) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              p.setName(p.getName().toLowerCase());<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; // #2: Use Function with specific type<br>
+              &nbsp;&nbsp;&nbsp; public static void
+              convertPeople(List&lt;Person&gt; people,<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              Function&lt;Person, Person&gt; aFunction) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person p :
+              people) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              aFunction.apply(p);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp;<b> // #3: Use Function with generic
+                type</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; public static &lt;T, R&gt; void
+                convert(List&lt;T&gt; myList, Function&lt;T, R&gt;
+                aFunction) {</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (T t :
+                myList) {</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; aFunction.apply(t);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; }</b><br>
+              <br>
+              &nbsp;&nbsp;&nbsp; // Utility method to display the result<br>
+              &nbsp;&nbsp;&nbsp; public static void displayResult(String
+              prefix, List&lt;Person&gt; results) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.print(prefix);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person person :
+              results) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.print(person.getName() + " ");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println();<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      2. Build and run the project<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">----&gt;#1a: JONG JON MARY <br>
+              ----&gt;#1a: jong jon mary <br>
+              ----&gt;#2a: JONG JON MARY <br>
+              ----&gt;#2b: jong jon mary <br>
+              ----&gt;#2c: jong jon mary <br>
+              <b>----&gt;#3a: JONG JON MARY </b><b><br>
+              </b><b>----&gt;#3b: jong jon mary </b><b><br>
+              </b><b>----&gt;#3c: jong jon mary</b><br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      Now if you want to perform conversion using a different type, all
+      you have to do is to create a new predicate using the different
+      type.<br>
+      <br>
+      3. Add Fruit.java<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              public class Fruit {<br>
+              &nbsp; private String name;<br>
+              &nbsp; private int quantity;<br>
+              <br>
+              &nbsp; public Fruit (String name, int quantity){<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.name = name;<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.quantity = quantity;<br>
+              &nbsp; }<br>
+              &nbsp;<br>
+              &nbsp; public String getName() {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return name;<br>
+              &nbsp; }<br>
+              <br>
+              &nbsp; public void setName(String name) {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.name = name;<br>
+              &nbsp; }<br>
+              <br>
+              &nbsp; public int getQuantity() {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return quantity;<br>
+              &nbsp; }<br>
+              <br>
+              &nbsp; public void setQuantity(int quantity) {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.quantity = quantity;<br>
+              &nbsp; }<br>
+              <br>
+              &nbsp; public String toString(){<br>
+              &nbsp;&nbsp;&nbsp; &nbsp; return name;<br>
+              &nbsp; }<br>
+              <br>
+              } </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      4. Add/modify Main.java<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.Arrays;<br>
+              import java.util.List;<br>
+              import java.util.function.Function;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Create test data<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Person[] personArray
+              = { new Person("Jong", 5), new Person("Jon", 12),<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; new Person("Mary", 13) };<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              people = Arrays.asList(personArray);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<b> Fruit[]
+                fruitArray = { new Fruit("Apple", 11), new
+                Fruit("Orange", 22),</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; new
+                Fruit("Banana", 33) };</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                List&lt;Fruit&gt; fruits = Arrays.asList(fruitArray);</b><br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // #1: call methods
+              which embeds conversion code in a for loop<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              convertPeopleUppercase(people);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#1a: ", people);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              convertPeopleLowercase(people);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#1a: ", people);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // #2: call methods
+              which use Function with specific type<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Function&lt;Person,
+              Person&gt; aFunction1 = person -&gt; {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              person.setName(person.getName().toUpperCase());<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              return person;<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; };<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              convertPeople(people, aFunction1);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#2a: ", people);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Function&lt;Person,
+              Person&gt; aFunction2 = person -&gt; {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              person.setName(person.getName().toLowerCase());<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              return person;<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; };<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              convertPeople(people, aFunction2);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#2b: ", people);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Function&lt;Person,
+              Person&gt; aFunction3 = person -&gt; {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              person.setName(person.getName().toLowerCase());<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              person.setAge(person.getAge() + 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              return person;<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; };<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              convertPeople(people, aFunction3);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#2c: ", people);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // #3: call methods
+              which use Function with generic type<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; convert(people,
+              aFunction1);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#3a: ", people);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; convert(people,
+              aFunction2);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#3b: ", people);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; convert(people,
+              aFunction3);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#3c: ", people);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<b>&nbsp;
+                Function&lt;Fruit, Fruit&gt; aFunction4 = fruit -&gt; {</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;
+                fruit.setName(fruit.getName().toUpperCase());</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; return fruit;</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; };</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                convert(fruits, aFunction4);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                displayResult("----&gt;#3d: ", fruits);</b><br>
+              <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; // #1: Embed conversion code in a for
+              loop<br>
+              &nbsp;&nbsp;&nbsp; public static void
+              convertPeopleUppercase(List&lt;Person&gt; people) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person p :
+              people) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              p.setName(p.getName().toUpperCase());<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void
+              convertPeopleLowercase(List&lt;Person&gt; people) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person p :
+              people) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              p.setName(p.getName().toLowerCase());<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; // #2: Use Function with specific type<br>
+              &nbsp;&nbsp;&nbsp; public static void
+              convertPeople(List&lt;Person&gt; people,<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              Function&lt;Person, Person&gt; aFunction) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Person p :
+              people) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              aFunction.apply(p);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; // #3: Use Function with generic type<br>
+              &nbsp;&nbsp;&nbsp; public static &lt;T, R&gt; void
+              convert(List&lt;T&gt; myList, Function&lt;T, R&gt;
+              aFunction) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (T t : myList) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              aFunction.apply(t);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; // Utility method to display
+                list of people or fruits</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; public static &lt;T&gt; void
+                displayResult(String prefix, List&lt;T&gt; results) {</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                System.out.print(prefix);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (T item :
+                results) {</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; System.out.print(item+ " ");</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                System.out.println();</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; }</b><br>
+              <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      5. Run the application<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">----&gt;#1a: JONG JON MARY <br>
+              ----&gt;#1a: jong jon mary <br>
+              ----&gt;#2a: JONG JON MARY <br>
+              ----&gt;#2b: jong jon mary <br>
+              ----&gt;#2c: jong jon mary <br>
+              ----&gt;#3a: JONG JON MARY <br>
+              ----&gt;#3b: jong jon mary <br>
+              ----&gt;#3c: jong jon mary <br>
+              <b>----&gt;#3d: APPLE ORANGE BANANA</b><br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_4">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a><br>
+      <br>
+      <br>
+      <br>
+    </div>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="4.4"></a>(4.4)
+Use
+
+
+
+
+
+
+
+
+      stream<br>
+    </h3>
+    <div style="margin-left: 40px;"> <br>
+      1. Add code to Main.java<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.Arrays;<br>
+              import java.util.List;<br>
+              import java.util.function.Function;<br>
+              import java.util.stream.Stream;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Create test data<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Person[] personArray
+              = { new Person("Jong", 5), new Person("Jon", 12),<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; new Person("Mary", 13) };<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Person&gt;
+              people = Arrays.asList(personArray);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Fruit[] fruitArray =
+              { new Fruit("Apple", 11), new Fruit("Orange", 22),<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; new Fruit("Banana", 33) };<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Fruit&gt;
+              fruits = Arrays.asList(fruitArray);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // #1: call methods
+              which embeds conversion code in a for loop<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              convertPeopleUppercase(people);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#1a: ", people);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              convertPeopleLowercase(people);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#1a: ", people);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // #2: call methods
+              which use Function with specific type<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Function&lt;Person,
+              Person&gt; aFunction1 = person -&gt; {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              person.setName(person.getName().toUpperCase());<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              return person;<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; };<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              convertPeople(people, aFunction1);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#2a: ", people);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Function&lt;Person,
+              Person&gt; aFunction2 = person -&gt; {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              person.setName(person.getName().toLowerCase());<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              return person;<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; };<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              convertPeople(people, aFunction2);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#2b: ", people);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Function&lt;Person,
+              Person&gt; aFunction3 = person -&gt; {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              person.setName(person.getName().toLowerCase());<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              person.setAge(person.getAge() + 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              return person;<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; };<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              convertPeople(people, aFunction3);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#2c: ", people);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // #3: call methods
+              which use Function with generic type<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; convert(people,
+              aFunction1);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#3a: ", people);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; convert(people,
+              aFunction2);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#3b: ", people);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; convert(people,
+              aFunction3);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#3c: ", people);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Function&lt;Fruit,
+              Fruit&gt; aFunction4 = fruit -&gt; {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              fruit.setName(fruit.getName().toUpperCase());<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              return fruit;<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; };<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; convert(fruits,
+              aFunction4);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              displayResult("----&gt;#3d: ", fruits);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <b>// #4: Use a
+                stream</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                Stream&lt;Person&gt; resultPeople =
+                people.stream().map(person -&gt; {</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;
+                person.setName(person.getName().toUpperCase());</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; return person;</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; });</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                System.out.print("----&gt;#4a: ");</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                resultPeople.forEach(person -&gt;
+                System.out.print(person.getName() + " "));</b><b><br>
+              </b><br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      2. Run the application<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">----&gt;#1a: JONG JON MARY <br>
+              ----&gt;#1a: jong jon mary <br>
+              ----&gt;#2a: JONG JON MARY <br>
+              ----&gt;#2b: jong jon mary <br>
+              ----&gt;#2c: jong jon mary <br>
+              ----&gt;#3a: JONG JON MARY <br>
+              ----&gt;#3b: jong jon mary <br>
+              ----&gt;#3c: jong jon mary <br>
+              ----&gt;#3d: APPLE ORANGE BANANA <br>
+              <b>----&gt;#4a: JONG JON MARY </b><br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_4">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a><br>
+    </div>
+    <br>
+    <div style="margin-left: 40px;"> &lt;For your own exercise&gt;<br>
+      <ul>
+        <li>Rewrite code in (4.2), (4.3) to use Consumer instead of
+          Function functional interface<br>
+        </li>
+      </ul>
+    </div>
+    <br>
+    <br>
+    <h2><a name="Exercise_5"></a>Exercise 5: Composition<br>
+    </h2>
+    <br>
+    <div style="margin-left: 40px;">Composition allows applying lambda
+      expressions one after another.&nbsp; There are two schemes of
+      compositionn - "compose" and "andThen".&nbsp; You are going to
+      exercise both.<br>
+      <ol>
+        <li><a href="#5.1">Composition example<br>
+          </a></li>
+      </ol>
+      <br>
+      <br>
+    </div>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="5.1"></a>(5.1)
+
+
+
+
+
+
+
+
+      Composition example<br>
+    </h3>
+    <div style="margin-left: 40px;"> <br>
+      1. Open/Import <span style="font-weight: bold;">lambda_fi_Function_composition</span>
+      project<br>
+      <br>
+      2. Study Main.java<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.function.Function;<br>
+              <br>
+              class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<b>&nbsp; // Functions
+                without composition</b><br>
+              //&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              Function&lt;Person, Address&gt; personToAddressFunction =
+              (person) -&gt; person.getAddress();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Function&lt;Person,
+              Address&gt; personToAddressFunction = Person::getAddress;<br>
+              //&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              Function&lt;Address, String&gt; addressToCountryFunction =
+              (address) -&gt; address.getCountry();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Function&lt;Address,
+              String&gt; addressToCountryFunction = Address::getCountry;<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Address address =
+              personToAddressFunction.apply(new Person("Sang",<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; new Address("Korea")));<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; String country =
+              addressToCountryFunction.apply(address);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("Country = " + country);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <b>// Functions
+                with "andThen" composition</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Function&lt;Person,
+              String&gt; personToCountryFunction1 = <b>personToAddressFunction</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <font
+                  color="#ff0000">.andThen</font>(addressToCountryFunction);</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; country =
+              personToCountryFunction1.apply(new Person("Jon",<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; new Address("USA")));<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("Country = " + country);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<b> // Functions with
+                "compose" composition</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Function&lt;Person,
+              String&gt; personToCountryFunction2 = <b>addressToCountryFunction</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <font
+                  color="#ff0000">.compose</font>(personToAddressFunction);</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; country =
+              personToCountryFunction2.apply(new Person("Jon",<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; new Address("China")));<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("Country = " + country);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              }<br>
+              <br>
+              class Address {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; private String country;<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public Address(String country) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.country =
+              country;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public String getCountry() {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return country;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              }<br>
+              <br>
+              class Person {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; private String name;<br>
+              &nbsp;&nbsp;&nbsp; private Address address;<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public Person(String name, Address
+              address) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.name = name;<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.address =
+              address;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public Address getAddress() {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return address;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+    </div>
+    <blockquote>3. Build and run the project<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">Country = Korea<br>
+              Country = USA<br>
+              Country = China<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_5">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a><br>
+    </blockquote>
+    <br>
+    <div style="margin-left: 40px;"> <br>
+    </div>
+    <p><br>
+      <br>
+    </p>
+    <h2><a name="Homework"></a>Homework exercise<br>
+    </h2>
+    <div style="margin-left: 40px;"><br>
+      1. Send the following files to <a
+        href="mailto:javase-adv-homeworks@jpassion.com">javase-adv-homeworks@jpassion.com</a>
+      with <span style="font-weight: bold;">Subject </span>as <span
+        style="font-weight: bold;"></span><span style="font-weight:
+        bold;">javase8_lambda_part2<br>
+      </span>
+      <ul>
+        <li>Zip files (Perform "maven clean" to those projects first) of
+          the individual exercises above.<br>
+        </li>
+      </ul>
+    </div>
+    <div style="margin-left: 40px;"><br>
+      <span style="font-weight: bold;"></span></div>
+    <div style="margin-left: 40px;">
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &nbsp; <a href="index.html#Tutorial_Exercises">return to top</a><br>
+    </div>
+    <br>
+    <div style="margin-left: 40px;"><br>
+    </div>
+    <p> </p>
+    <!-- ======================================================================================== -->
+  </body>
+</html>

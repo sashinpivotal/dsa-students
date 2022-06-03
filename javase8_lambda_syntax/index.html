@@ -1,0 +1,2278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <script src="index_files/tigris.txt" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css"
+      href="index_files/netbeans.css">
+    <title>LAB-1611: Java SE 8: Lambda Expression Syntax</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta name="SourceCastVersion" content="2.6.2.4.10">
+    <meta name="keywords" content="NetBeans, IDE, Platform, free, open
+      source, developer">
+    <link rel="stylesheet" href="index_files/netbeans_002.css">
+    <meta name="author" content="Sang Shin">
+    <style type="text/css">
+#search {height:100%;}
+#topmodule {align:right;}
+  </style>
+    <script language="JavaScript" type="text/javascript">
+<!--
+function get_sc_login() {
+  var sclogin = "guest";
+  return (sclogin);
+}
+var username=get_sc_login();
+//-->
+  </script>
+  </head>
+  <body onload="loginfocus()" class="composite">
+    <br>
+    <div style="text-align: center;">@Copyright notice: This content is
+      meant to be used only for paying subscriber's personal
+      consumption. And any shape or or form of sharing with others is
+      strictly prohibited&nbsp; unless a special licensing arrangement
+      has been made with <a href="mailto:support@jpassion.com">JPassion.com</a>.<!-- begin TopTabs --><!-- end TopTabs --><!-- start NavCol --><!-- end NavCol --><!-- Servlet-Specific template --><!-- Show servlet name if it is a servlet -->
+      <br>
+    </div>
+    <br>
+    <h1 style="text-align: center;">Java SE 8: Lambda Expression Syntax<br>
+    </h1>
+    <div class="articledate" style="margin-left: 0px; text-align:
+      center;"><a href="http://www.jpassion.com/">jpassion.com</a>, <a
+        href="http://groups.google.com/group/jpassion_advanced_java">class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        forum</a><br>
+      <br>
+      <img alt="" src="index_files/sangshin2009.jpg" style="width: 88px;
+        height: 101px;"><br>
+      <a href="mailto:sang.shin@sun.com"><i></i></a></div>
+    <p style="margin-left: 40px;"><font face="Arial, sans-serif">Lambda
+        expression is a formal system for expressing “computational
+        behavior” (or parameterizing a behavior)</font> through
+      functions.&nbsp; Java 8 finally supports Lambda expression through
+      functional interface, which is essentially a single abstract
+      method interface.<br>
+    </p>
+    <br>
+    <p></p>
+    <p align="center"><b>Expected duration: 60 minutes</b></p>
+    <div class="indent"><br>
+      <h3 class="tutorial">Resources<br>
+      </h3>
+      <ul>
+        <li>Reference websites</li>
+        <ul>
+          <li><a href="http://openjdk.java.net/projects/lambda/">Open
+              JDK Project Lambda</a> website<br>
+          </li>
+        </ul>
+        <li>Screencasts</li>
+        <ul>
+          <li><a href="https://www.youtube.com/watch?v=bzO5GSujdqI">Jump_Starting
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              Lambda Programming</a> screencast (Feb. 2013)</li>
+          <li><a href="https://www.youtube.com/watch?v=q5i_O4Uj_O8">Lambda
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              Expressions in Java - What's New in Java 8 Part 1</a>
+            screencast (July, 2014)</li>
+          <li><a
+href="https://www.youtube.com/playlist?list=PLMod1hYiIvSZL1xclvHcsV2dMiminf19x">JDK
+
+
+
+
+
+              8 MOOC</a> from Oracle<br>
+          </li>
+        </ul>
+        <li>Presentations</li>
+        <ul>
+          <li><a
+href="http://www.slideshare.net/premanandc/functional-30622514?qid=39ec91de-129d-4844-bd7c-45dc04f98903&amp;v=qf1&amp;b=&amp;from_search=2">Functional
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              programming in Java</a> presentation (Jan. 2014)</li>
+          <li><a
+href="http://www.slideshare.net/wakaleo/functional-programming-in-java-14580186?qid=5a767e8d-057a-46cc-9ae8-1b22685554ec&amp;v=default&amp;b=&amp;from_search=3">Functional
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              programming in Java</a> presentation (Oct. 2012)<br>
+          </li>
+        </ul>
+        <li>Tutorials</li>
+        <ul>
+          <li><a
+href="http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/Lambda-QuickStart/index.html">Java
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              SE 8: Lambda Quick Start</a> from oracle.com<br>
+          </li>
+          <li><a
+href="http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html">Java
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              Tutorial Lambda Expressions section</a> from
+            docs.oracle.com</li>
+          <li><a
+href="http://www.oracle.com/technetwork/articles/java/architect-lambdas-part1-2080972.html">Java
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              8: Lambdas, Part 1</a> by Ted Neward&nbsp;</li>
+          <li><a
+href="https://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html">Method
+
+
+
+
+
+
+
+
+
+
+
+
+              reference</a> tutorial from Oracle document</li>
+          <li><a
+href="http://moandjiezana.com/blog/2014/understanding-method-references/">Understanding
+
+
+
+
+
+
+
+
+
+
+
+              Method reference</a> tutorial (2014)<br>
+          </li>
+        </ul>
+        <li>Articles</li>
+        <ul>
+          <li><a href="http://martinfowler.com/bliki/Lambda.html">Lambda</a>
+            by Martin Fowler (2004)<br>
+          </li>
+        </ul>
+      </ul>
+      <br>
+      <h3 class="tutorial"><a name="Change_Log"></a>Change Log<br>
+      </h3>
+      <ul>
+        <li>June 10th, 2015: Created (Sang Shin)</li>
+        <li>June 15th, 2015: Effectively final variables exercise is
+          added (Sang Shin)</li>
+        <li>Aug. 12th, 2015: More lab exercises are added (Sang Shin)</li>
+        <li>Jan. 18th, 2017: Individual lab exercise descriptions are
+          moved to the source code (Sang Shin)</li>
+        <li>Feb 19th, 2017: Method reference exercises are separated out
+          into its own lab, Effectively final local variable exercise is
+          moved here (Sang Shin)<br>
+        </li>
+      </ul>
+      <br>
+      <h3 class="tutorial"><a name="Tutorial_Exercises"></a>Lab
+        Exercises</h3>
+      <br>
+      Most exercises in this lab are provided in the form of
+      "ready-to-open-and-run" Maven projects in order to maximize the
+      effectiveness of your learning process. You are welcome to create
+      them from scratch.&nbsp;&nbsp; It is also strongly encouraged you
+      do as much experimentation of your own by changing the provided
+      code.<br>
+      <ul>
+        <li><a href="#Exercise_1">Exercise 1: Functional interface (20
+            minutes)</a><br>
+        </li>
+        <li><a href="#Exercise_2">Exercise 2: Rewriting Anonymous Inner
+            class with Lambda expression (20 minutes)</a><br>
+        </li>
+        <li><a href="#Exercise_3">Exercise 3: Lambda expression
+            simplification (20 minutes)</a></li>
+        <li><a href="#Exercise_4">Exercise 4: Effective final local
+            variables (10 minutes)</a><br>
+        </li>
+        <li><a href="#Homework">Homework Exercise</a></li>
+      </ul>
+      <br>
+      <ul>
+        <ul>
+        </ul>
+      </ul>
+    </div>
+    <!-- ===================================================================================== -->
+    <h2><a name="Exercise_1"></a>Exercise 1: Functional interface<br>
+    </h2>
+    <div style="margin-left: 40px;"> <br>
+      A Lambda expression is considered as a instance of a functional
+      interface (an interface with a single abstract method)<br>
+      <ol>
+        <li><a href="#1.1">Simple Lambda expression</a></li>
+        <li><a href="#1.2">@FunctionalInterface</a><br>
+        </li>
+      </ol>
+      <span style="text-decoration: underline;"><span
+          style="font-weight: bold;"> <br>
+        </span></span></div>
+    <br>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="1.1"></a>(1.1)
+
+
+
+
+
+      Simple lambda expression<br>
+    </h3>
+    <div style="margin-left: 40px;"><br>
+      1. Open/Import project <span style="font-weight: bold;"><span
+          style="color: rgb(51, 51, 255);">lambda_FunctionalInterface</span></span><br>
+      <br>
+      2. Study <b>Calculator.java</b>, which is a functional
+      interface.&nbsp; Note that Calculator interface has a single
+      abstract method.<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              <b>@FunctionalInterface</b><b><br>
+              </b><b>public interface Calculator </b>{<br>
+              &nbsp;&nbsp; int calculate(int x, int y);<br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <img alt="" src="index_files/la_01.png" height="858" width="870"><br>
+      <br>
+      3. Study <b>Main.java</b>.&nbsp; Note that any place a functional
+      interface type can be used - variables or arguments -, lambda
+      expression can be used.<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              public class Main {<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<b> // Set variables
+                with lambda expression</b><b>s</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Calculator
+                multiply = <font color="#ff0000">(x, y) -&gt; x * y</font>;</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Calculator
+                divide = <font color="#ff0000">(x, y) -&gt; x / y</font>;<br>
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Call
+                methods of lambda expressions<br>
+              </b> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int product = <b>multiply.calculate(50,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                10);</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int quotient = <b>divide.calculate(50,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                10);</b><b><br>
+              </b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("product = " + product + " quotient = "
+              + quotient);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <b>// Pass lambda
+                expressions to a method as arguments</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; someMethod (<b>multiply</b>,
+              <b>divide</b>);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<b> // Pass lambda
+                expressions to a method as arguments</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; anotherMethod(<font
+                color="#ff0000"><b>(x, y) -&gt; x * y, (x, y) -&gt; x /
+                  y</b></font>);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; public static void someMethod(<b>Calculator
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                m, Calculator d</b>){<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int product =
+              m.calculate(60, 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int quotient =
+              d.calculate(60, 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("product = " + product + " quotient = "
+              + quotient);<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; public static void anotherMethod(<b>Calculator
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                m, Calculator d</b>){<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int product =
+              m.calculate(70, 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int quotient =
+              d.calculate(70, 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("product = " + product + " quotient = "
+              + quotient);<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      4. Build and run the project. <br>
+      <br>
+      <span style="color: rgb(0, 0, 0);"></span>
+      <table style="width: 100%; text-align: left;" border="1"
+        cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td style="vertical-align: top;">product = 500 quotient = 5<br>
+              product = 600 quotient = 6<br>
+              product = 700 quotient = 7<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_1">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a><br>
+      <br>
+      <br>
+    </div>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="1.2"></a>(1.2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      @FunctionalInterface<br>
+    </h3>
+    <div style="margin-left: 40px;"><span style="color: rgb(51, 51,
+        255); font-weight: bold;"></span><br>
+      1. Modify the Calculator.java as shown below.&nbsp; This is to
+      experience compile error through @FunctionalInterface annotation<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              @FunctionalInterface<br>
+              public interface Calculator {<br>
+              &nbsp;&nbsp; int calculate(int x, int y);<br>
+              &nbsp;&nbsp;<b> int anotherMethod();</b><b>&nbsp; // will
+                cause compile error</b><br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+    </div>
+    <div style="margin-left: 40px;">2. Observe the compile error<br>
+      <br>
+      <img alt="" src="index_files/la_02.png" height="858" width="870"><br>
+      <ul>
+      </ul>
+      <img alt="" src="index_files/la_03.png" height="858" width="870"><br>
+      <br>
+      3. Remove the line so that the compile error no longer occurs<br>
+      <br>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_1">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a> </div>
+    <br>
+    <br>
+    <br>
+    <h2><a name="Exercise_2"></a>Exercise 2: Rewrite anonymous inner
+      class with Lambda expression<br>
+    </h2>
+    <p style="margin-left: 40px;">Given that typical usage of anonymous
+      inner class is an example of an argument whose type is a
+      functional interface, you can now replace it with Lambda
+      expression<br>
+    </p>
+    <blockquote>
+      <ol>
+        <li><a href="#2.1">Runnable interface</a></li>
+        <li><a href="#2.2">ActionListener interrface</a></li>
+        <li><a href="#2.3">Comparator interface</a><br>
+        </li>
+      </ol>
+    </blockquote>
+    <div style="margin-left: 40px;"> <br>
+    </div>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="2.1"></a>(2.1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      Runnable interface<br>
+    </h3>
+    <div style="margin-left: 40px;"><br>
+      1. Open/Import project <span style="font-weight: bold;">lambda_anonymous_Runnable</span>
+      <br>
+      <ul>
+      </ul>
+    </div>
+    <p style="margin-left: 40px;">2. Study Main.java<br>
+    </p>
+    <div style="margin-left: 40px;">
+      <ul>
+      </ul>
+      <table style="width: 100%; text-align: left;" border="1"
+        cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td style="vertical-align: top;">public class Main{<br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("=== RunnableTest ===");<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<b> // Anonymous
+                Runnable</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Runnable r1 =
+                new <font color="#3333ff">Runnable</font><font
+                  color="#ff0000">()</font> {</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; @Override</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; public void run() {</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <font
+                  color="#ff0000">System.out.println("Hello world
+                  one!");</font></b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; }</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; };</b><br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<b> // Lambda
+                Runnable</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Runnable r2 =
+                <font color="#ff0000">() -&gt; System.out.println("Hello
+                  world two!")</font>;</b><br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Run em!<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; r1.run();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; r2.run();<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      3. Build and run the project<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">=== RunnableTest ===<br>
+              Hello world one!<br>
+              Hello world two!<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_2">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a><br>
+      <br>
+      <br>
+    </div>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="2.2"></a>(2.2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ActionListener interface<br>
+    </h3>
+    <div style="margin-left: 40px;"><br>
+      1. Open/Import project <span style="font-weight: bold;">lambda_anonymous_ActionListener</span><br>
+      <br>
+      2. Study Main.java<br>
+      <br>
+      <table style="width: 100%; text-align: left;" border="1"
+        cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td style="vertical-align: top;">package mypackage;<br>
+              <br>
+              import java.awt.BorderLayout;<br>
+              import java.awt.event.ActionEvent;<br>
+              import java.awt.event.ActionListener;<br>
+              import javax.swing.JButton;<br>
+              import javax.swing.JFrame;<br>
+              <br>
+              public class Main{<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; JButton
+              testButton1 = new JButton("Click to call Anonymous
+              ActionListener");<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; JButton
+              testButton2 = new JButton("Click to call Lambda
+              ActionListener");<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b> // Anonymous
+                ActionListener</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                testButton1.addActionListener(new <font color="#3333ff">ActionListener</font>()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                {</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                @Override</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                public void actionPerformed(<font color="#ff0000">ActionEvent
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  e</font>) {</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font
+                  color="#ff0000"> System.out.println("Click Detected by
+                  Anonymous Listener: " + e);</font></b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                }</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; });</b><br>
+              <br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b> // Lambda
+                ActionListener</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                testButton2.addActionListener(<font color="#ff0000">e
+                  -&gt; System.out.println("Click Detected by Lambda
+                  Listner: " + e)<font color="#000000">);</font></font></b><b><br>
+              </b><br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Swing stuff<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; JFrame frame =
+              new JFrame("Listener Test");<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              frame.add(testButton1, BorderLayout.WEST);<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              frame.add(testButton2, BorderLayout.EAST);<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; frame.pack();<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              frame.setVisible(true);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      3. Build and run the project<br>
+      <br>
+      <img alt="" src="index_files/la_04.png" height="73" width="507"><br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">Click Detected by Anonymous Listener:
+              java.awt.event.ActionEvent[ACTION_PERFORMED,cmd=Click to
+              call Anonymous
+              ActionListener,when=1484757318284,modifiers=Button1] on
+              javax.swing.JButton[,0,0,255x26,alignmentX=0.0,alignmentY=0.5,border=javax.swing.plaf.BorderUIResource$CompoundBorderUIResource@77f4eb46,flags=296,maximumSize=,minimumSize=,preferredSize=,defaultIcon=,disabledIcon=,disabledSelectedIcon=,margin=javax.swing.plaf.InsetsUIResource[top=2,left=14,bottom=2,right=14],paintBorder=true,paintFocus=true,pressedIcon=,rolloverEnabled=true,rolloverIcon=,rolloverSelectedIcon=,selectedIcon=,text=Click
+
+
+
+
+              to call Anonymous ActionListener,defaultCapable=true]<br>
+              Click Detected by Lambda Listner:
+              java.awt.event.ActionEvent[ACTION_PERFORMED,cmd=Click to
+              call Lambda
+              ActionListener,when=1484757319814,modifiers=Button1] on
+              javax.swing.JButton[,255,0,234x26,alignmentX=0.0,alignmentY=0.5,border=javax.swing.plaf.BorderUIResource$CompoundBorderUIResource@77f4eb46,flags=296,maximumSize=,minimumSize=,preferredSize=,defaultIcon=,disabledIcon=,disabledSelectedIcon=,margin=javax.swing.plaf.InsetsUIResource[top=2,left=14,bottom=2,right=14],paintBorder=true,paintFocus=true,pressedIcon=,rolloverEnabled=true,rolloverIcon=,rolloverSelectedIcon=,selectedIcon=,text=Click
+
+
+
+
+              to call Lambda ActionListener,defaultCapable=true]<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_2">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a><br>
+      <br>
+      <br>
+    </div>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="2.3"></a>(2.3)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      Comparator interface<br>
+    </h3>
+    <div style="margin-left: 40px;"><br>
+      1. Open/Import project <span style="font-weight: bold;">lambda_anonymous_Comparator</span><br>
+      <br>
+      2. Study Main.java<br>
+      <br>
+      <table style="width: 100%; text-align: left;" border="1"
+        cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td style="vertical-align: top;">package mypackage;<br>
+              <br>
+              import java.util.Collections;<br>
+              import java.util.List;<br>
+              import java.util.Comparator;<br>
+              <br>
+              public class Main{<br>
+              <br>
+              &nbsp; public static void main(String[] args) {<br>
+              &nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; List&lt;Person&gt; personList =
+              Person.createShortList();<br>
+              &nbsp; <br>
+              &nbsp;&nbsp;&nbsp; <b>// Sort with Anonymous Inner Class</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; Collections.sort(personList, new
+                <font color="#3333ff"> Comparator</font>&lt;Person&gt;(){</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public int compare<font
+                  color="#ff0000">(Person p1, Person p2)</font>{</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return <font
+                  color="#ff0000">
+                  p1.getSurName().compareTo(p2.getSurName())</font>;</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; });</b><br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; System.out.println("=== Sorted Asc
+              SurName ===");<br>
+              &nbsp;&nbsp;&nbsp; for(Person p:personList){<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p.printName();<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; // Use Lambda instead<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; // Print in ascending order<br>
+              &nbsp;&nbsp;&nbsp; System.out.println("=== Sorted Asc
+              SurName ===");<br>
+              &nbsp;&nbsp;&nbsp; <b>Collections.sort(personList,<font
+                  color="#ff0000"> (Person p1, Person p2) -&gt;
+                  p1.getSurName().compareTo(p2.getSurName())</font>);</b><br>
+              <br>
+              &nbsp;&nbsp;&nbsp; for(Person p:personList){<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p.printName();<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; // Print in descending order<br>
+              &nbsp;&nbsp;&nbsp; System.out.println("=== Sorted Desc
+              SurName ===");<br>
+              &nbsp;&nbsp;&nbsp; <b>Collections.sort(personList, <font
+                  color="#ff0000">(p1,&nbsp; p2) -&gt;
+                  p2.getSurName().compareTo(p1.getSurName())</font>);</b><b><br>
+              </b><br>
+              &nbsp;&nbsp;&nbsp; for(Person p:personList){<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p.printName();<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp; }<br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      3. Person.java<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.ArrayList;<br>
+              import java.util.List;<br>
+              <br>
+              public class Person {<br>
+              &nbsp; private String givenName;<br>
+              &nbsp; private String surName;<br>
+              &nbsp; private int age;<br>
+              &nbsp; private Gender gender;<br>
+              &nbsp; private String eMail;<br>
+              &nbsp; private String phone;<br>
+              &nbsp; private String address;<br>
+              &nbsp; <br>
+              &nbsp; // more code<br>
+              <br>
+              &nbsp; public static List&lt;Person&gt; createShortList(){<br>
+              &nbsp;&nbsp;&nbsp; List&lt;Person&gt; people = new
+              ArrayList&lt;&gt;();<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; people.add(<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new Person.Builder()<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              .givenName("Bob")<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              .surName("Baker")<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              .age(21)<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              .gender(Gender.MALE)<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              .email("bob.baker@example.com")<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              .phoneNumber("201-121-4678")<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              .address("44 4th St, Smallville, KS 12333")<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              .build() <br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; );<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;<br>
+              &nbsp;&nbsp;&nbsp;&nbsp; // Add more people<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; people.add(<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new Person.Builder()<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              .givenName("Betty")<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              .surName("Jones")<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              .age(85)<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              .gender(Gender.FEMALE)<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              .email("betty.jones@example.com")<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              .phoneNumber("211-33-1234")<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              .address("22 4th St, New Park, CO 222333")<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              .build()<br>
+              &nbsp;&nbsp;&nbsp; );<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; return people;<br>
+              &nbsp; }<br>
+              &nbsp; <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      4. Build and run<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">=== Sorted Asc SurName ===<br>
+              Name: Joe Bailey<br>
+              Name: Bob Baker<br>
+              Name: Jane Doe<br>
+              Name: John Doe<br>
+              Name: James Johnson<br>
+              Name: Betty Jones<br>
+              Name: Phil Smith<br>
+              === Sorted Asc SurName ===<br>
+              Name: Joe Bailey<br>
+              Name: Bob Baker<br>
+              Name: Jane Doe<br>
+              Name: John Doe<br>
+              Name: James Johnson<br>
+              Name: Betty Jones<br>
+              Name: Phil Smith<br>
+              === Sorted Desc SurName ===<br>
+              Name: Phil Smith<br>
+              Name: Betty Jones<br>
+              Name: James Johnson<br>
+              Name: Jane Doe<br>
+              Name: John Doe<br>
+              Name: Bob Baker<br>
+              Name: Joe Bailey<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_2">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a><br>
+      <br>
+      <span style="color: rgb(51, 51, 255); font-weight: bold;"></span><br>
+    </div>
+    <br>
+    <h2><a name="Exercise_3"></a>Exercise 3: Lambda expression syntax<br>
+    </h2>
+    <br>
+    <div style="margin-left: 40px;">Lambda expression syntax can be
+      simplified in several ways - type inference, single expression
+      body, and single argument.<br>
+      <ol>
+        <li><a href="#2.3">Type inference</a></li>
+        <li><a href="#3.2">Single expression body</a></li>
+        <li><a href="#3.3">Single argument</a><br>
+        </li>
+      </ol>
+    </div>
+    <p style="margin-left: 40px;"></p>
+    <ul>
+      <ul>
+      </ul>
+      <ol>
+      </ol>
+    </ul>
+    <br>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="3.1"></a>(3.1)
+Type
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      inference<br>
+    </h3>
+    <br>
+    <div style="margin-left: 40px;"> 1. Open/Import project <span
+        style="font-weight: bold;">lambda_syntax_01</span><br>
+      <ul>
+      </ul>
+    </div>
+    <p style="margin-left: 40px;">2. Study Main.java<br>
+    </p>
+    <blockquote>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypa<font color="#ff0000">ckage;<br>
+                <br>
+                public class Main</font> {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Set variables
+              with lambda expressions<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Calculator multiply
+              = <b>(int x, int y) -&gt; {</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; return x * y;</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</b>; // No
+              simplification<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Calculator divide =<b>
+                (x, y) -&gt; {</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; return x / y;</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</b>; //
+              Type inference simplification<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int product =
+              multiply.calculate(50, 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int quotient =
+              divide.calculate(50, 10);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("product = " + product + " quotient = "
+              + quotient);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Pass lambda
+              expression as arguments<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; someMethod(multiply,
+              divide, 50, 10);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Pass lambda
+              expression as arguments<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; someMethod(<b>(int
+                x, int y) -&gt; {return x * y;}</b>, <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<font color="#ff0000"> </font><b><font
+                  color="#ff0000">(x, y)</font> -&gt; {return x / y;}</b>,<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              60, 10);<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void
+              someMethod(Calculator m, Calculator d, int i1, int i2) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int product =
+              m.calculate(i1, i2);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int quotient =
+              d.calculate(i1, i2);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("product = " + product + " quotient = "
+              + quotient);<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </blockquote>
+    <div style="margin-left: 40px;">
+      <ul>
+      </ul>
+      3. Study Calculator.java<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              @FunctionalInterface<br>
+              public interface Calculator {<br>
+              &nbsp;&nbsp; int calculate(int x, int y);<br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      4. Build and run<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">product = 500 quotient = 5<br>
+              product = 500 quotient = 5<br>
+              product = 600 quotient = 6<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_3">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a><br>
+      <br>
+      <br>
+    </div>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="3.2"></a>(3.2)
+Single
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      expression body<br>
+    </h3>
+    <div style="margin-left: 40px;"><br>
+      1. Open/Import project <span style="font-weight: bold;">lambda_syntax_02</span><br>
+      <br>
+      2. Study Main.java<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              public class Main {<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Set variables
+              with lambda expressions<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Calculator
+              multiply =<b> (x, y) -&gt;<font color="#ff0000"> {return x
+                  * y;}</font>;&nbsp; // return is specified</b><br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Calculator
+              divide =<b> (x, y) -&gt; <font color="#ff0000">x / y</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                // single expression body</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int product =
+              multiply.calculate(50, 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int quotient =
+              divide.calculate(50, 10);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("product = " + product + " quotient = "
+              + quotient);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Pass lambda
+              expression as arguments<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; someMethod
+              (multiply, divide);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Pass lambda
+              expression as arguments<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; someMethod(<b>(x, y)
+                -&gt; <font color="#ff0000">{return x * y;}</font></b>,&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              // return is specified<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <b>(x, y) -&gt; <font color="#ff0000">x / y</font></b>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              // single expression body<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; public static void
+              someMethod(Calculator m, Calculator d){<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int product =
+              m.calculate(60, 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int quotient =
+              d.calculate(60, 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("product = " + product + " quotient = "
+              + quotient);<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      3. Build and run <br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">product = 500 quotient = 5<br>
+              product = 600 quotient = 6<br>
+              product = 700 quotient = 7<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_3">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a><br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+    </div>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="3.3"></a>(3.3)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      Single argument<br>
+    </h3>
+    <div style="margin-left: 40px;"> <br>
+      1. Open/Import project <span style="font-weight: bold;">lambda_syntax_03</span><br>
+      <br>
+      2. Study Calculator2.java&nbsp; This is a new functional
+      interface.&nbsp; Note that it has calculate method, which takes a
+      single argument.<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              @FunctionalInterface<br>
+              public interface Calculator2 {<br>
+              &nbsp;&nbsp; int calculate(int x);<br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      3. Study Main.java<br>
+      <br>
+      <table style="width: 100%; text-align: left;" border="1"
+        cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td style="vertical-align: top;">package mypackage;<br>
+              <br>
+              public class Main {<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Set variables
+              with lambda expressions<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Calculator
+              multiply = (x, y) -&gt; {return x * y;};&nbsp; // return
+              is specified<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Calculator
+              divide = (x, y) -&gt; x /
+              y;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              // single expression body<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int product =
+              multiply.calculate(50, 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int quotient =
+              divide.calculate(50, 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("product = " + product + " quotient = "
+              + quotient);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>&nbsp;&nbsp; Calculator2
+                square1 =<font color="#ff0000"> (x)</font> -&gt;
+                x*x;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                // () used for single argument</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Calculator2 square2 =<font color="#ff0000"> x</font>
+                -&gt;
+                x*x;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                // single argument simplification</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int s1 =
+                square1.calculate(50);</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int s2 =
+                square2.calculate(10);</b><b><br>
+              </b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                System.out.println("s1 = " + s1 + " s2 = " + s2);</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Pass lambda
+              expression as arguments<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; someMethod
+              (multiply, divide);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Pass lambda
+              expression as arguments<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; anotherMethod((x, y)
+              -&gt; {return x *
+              y;},&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              // return is specified<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (x,
+              y) -&gt; x /
+              y);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              // single expression body<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; public static void
+              someMethod(Calculator m, Calculator d){<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int product =
+              m.calculate(60, 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int quotient =
+              d.calculate(60, 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("product = " + product + " quotient = "
+              + quotient);<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; public static void
+              anotherMethod(Calculator m, Calculator d){<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int product =
+              m.calculate(70, 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int quotient =
+              d.calculate(70, 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("product = " + product + " quotient = "
+              + quotient);<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      4. Build and run<br>
+      <br>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">product = 500 quotient = 5<br>
+              s1 = 2500 s2 = 100<br>
+              product = 600 quotient = 6<br>
+              product = 700 quotient = 7<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_3">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a><br>
+    </div>
+    <p></p>
+    <br>
+    <h2><a name="Exercise_4"></a>Exercise 4: Effectively Final variables<br>
+    </h2>
+    <br>
+    <div style="margin-left: 40px;">The local variables in the enclosing
+      body can be accessed within the Lambda expression.&nbsp; But they
+      cannot be changed even if they are not set with "final"
+      modifier.&nbsp; For that reason, they are called effectively final
+      variables<br>
+      <ol>
+        <li><a href="#4.1">Access local variable of enclosing body<br>
+          </a></li>
+        <li><a href="#4.2">Try to change the local variable of enclosing
+            body<br>
+          </a></li>
+      </ol>
+      <br>
+      <br>
+    </div>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="4.1"></a>(4.1)&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      Access local variable <br>
+    </h3>
+    <br>
+    <div style="margin-left: 40px;"> 1. Open/Import <span
+        style="font-weight: bold;">lambda_effectively_final</span><br>
+    </div>
+    <p style="margin-left: 40px;">2. Study Main.java.&nbsp; Note that
+      within the Lambda expression, you can access the local variable
+      called "myInt" in the enclosing bocy.<br>
+    </p>
+    <blockquote>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              public class Main {<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<b> int myInt = 100;</b><br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Set variables
+              with lambda expressions<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Calculator multiply
+              = (int x, int y) -&gt; {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              return x * y * <b>myInt</b>;<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; };<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Calculator divide =
+              (x, y) -&gt; {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              return x * y;<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; };<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int product =
+              multiply.calculate(50, 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int quotient =
+              divide.calculate(50, 10);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("product = " + product + " quotient = "
+              + quotient);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </blockquote>
+    <p style="margin-left: 40px;">3. Build and run<br>
+    </p>
+    <blockquote>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">product = <b>50000 </b>quotient = 500<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </blockquote>
+    <p style="margin-left: 40px;">&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp; <a href="#Exercise_4">return to top of exercise</a>,
+      <a
+href="file:///C:/1passion.labs/handson_javase_adv/javase8_lambda_fi/index.html#Tutorial_Exercises">return
+        to top</a><br>
+      <br>
+    </p>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="4.2"></a>(4.2)&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      Try to change the local variable of enclosing body<br>
+    </h3>
+    <br>
+    <blockquote> 1. Modify the code.&nbsp; The modification is to change
+      the local variable of the enclosing body.&nbsp; Note that compiler
+      error occurs<br>
+      2. Observe that compile error occurs.<br>
+      <br>
+    </blockquote>
+    <blockquote>
+      <table border="1" cellpadding="2" cellspacing="2" width="100%">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              public class Main {<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<b> int myInt = 100;</b><br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Set variables
+              with lambda expressions<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Calculator
+              multiply = (int x, int y) -&gt; {<font color="#ff0000"><b>myInt
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  = 30; </b></font>return x * y <b>* myInt</b>;}; //
+              Compile error<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Calculator
+              divide = (x, y) -&gt; {return x *
+              y;};&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int product =
+              multiply.calculate(50, 10);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int quotient =
+              divide.calculate(50, 10);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("product = " + product + " quotient = "
+              + quotient);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              }</td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <img alt=""
+src="file:///C:/1passion.labs/handson_javase_adv/javase8_lambda_fi/index_files/la_06.png"
+        height="711" width="805"><br>
+      <br>
+      3. Remove the offending code<br>
+    </blockquote>
+    &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+      href="#Exercise_4">return to top of exercise</a>, <a
+href="file:///C:/1passion.labs/handson_javase_adv/javase8_lambda_fi/index.html#Tutorial_Exercises">return
+      to top</a><br>
+    <br>
+    <br>
+    <p> </p>
+    <h2><a name="Homework"></a>Homework exercise<br>
+    </h2>
+    <br>
+    <div style="margin-left: 40px;">1. Send the following files to <a
+        href="mailto:javase-adv-homeworks@jpassion.com">javase-adv-homeworks@jpassion.com</a>
+      with <span style="font-weight: bold;">Subject </span>as <span
+        style="font-weight: bold;"></span><span style="font-weight:
+        bold;">javase8_lambda_syntax<br>
+      </span>
+      <ul>
+        <li>Zip files (Perform "maven clean" to those projects first) of
+          the individual exercises above.<br>
+        </li>
+      </ul>
+    </div>
+    <div style="margin-left: 40px;"><br>
+      <span style="font-weight: bold;"></span></div>
+    <div style="margin-left: 40px;">
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <a href="index.html#Tutorial_Exercises">return to the top</a><br>
+    </div>
+    <br>
+    <div style="margin-left: 40px;"><br>
+    </div>
+    <p> </p>
+    <!-- ======================================================================================== -->
+  </body>
+</html>

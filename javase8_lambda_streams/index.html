@@ -1,0 +1,2016 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <script src="index_files/tigris.txt" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css"
+      href="index_files/netbeans.css">
+    <title>LAB-1621: Java SE 8: Lambda Streams</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta name="SourceCastVersion" content="2.6.2.4.10">
+    <meta name="keywords" content="NetBeans, IDE, Platform, free, open
+      source, developer">
+    <link rel="stylesheet" href="index_files/netbeans_002.css">
+    <meta name="author" content="Sang Shin">
+    <style type="text/css">
+#search {height:100%;}
+#topmodule {align:right;}
+  </style>
+    <script language="JavaScript" type="text/javascript">
+<!--
+function get_sc_login() {
+  var sclogin = "guest";
+  return (sclogin);
+}
+var username=get_sc_login();
+//-->
+  </script>
+  </head>
+  <body onload="loginfocus()" class="composite">
+    <br>
+    <div style="text-align: center;">@Copyright notice: This content is
+      meant to be used only for paying subscriber's personal
+      consumption. And any shape or or form of sharing with others is
+      strictly prohibited&nbsp; unless a special licensing arrangement
+      has been made with <a href="mailto:support@jpassion.com">JPassion.com</a>.<!-- begin TopTabs --><!-- end TopTabs --><!-- start NavCol --><!-- end NavCol --><!-- Servlet-Specific template --><!-- Show servlet name if it is a servlet -->
+      <br>
+    </div>
+    <br>
+    <h1 style="text-align: center;">Java SE 8 Streams<br>
+    </h1>
+    <div class="articledate" style="margin-left: 0px; text-align:
+      center;"><a href="http://www.jpassion.com/">jpassion.com</a>, <a
+        href="http://groups.google.com/group/jpassion_advanced_java">class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        forum</a><br>
+      <br>
+      <img alt="" src="index_files/sangshin2009.jpg" style="width: 88px;
+        height: 101px;"><br>
+      <a href="mailto:sang.shin@sun.com"><i></i></a></div>
+    <p style="margin-left: 40px;"><br>
+    </p>
+    <blockquote> One of the new features introduced in Java 8 is
+      Streams. Streams provides&nbsp; many convenient and
+      high-performance operations expressed succinctly with Lambda
+      expressions. In fact, all Stream operations take Lambda
+      expressions as arguments. So Streams and Lambda work together to
+      provide simple, fluent, declarative way of processing data.<br>
+    </blockquote>
+    <p></p>
+    <p align="center"><b>Expected duration: 80 minutes</b></p>
+    <div class="indent"><br>
+      <h3 class="tutorial">Resources<br>
+      </h3>
+      <ul>
+        <li>Tutorials</li>
+        <ul>
+          <li><a
+href="http://www.oracle.com/technetwork/articles/java/ma14-java-se-8-streams-2177646.html">Processing
+
+
+
+
+
+
+
+
+
+              Data with Java SE 8 Streams Part 1</a> from oracle.com<br>
+          </li>
+          <li><a
+              href="http://www.informit.com/articles/article.aspx?p=2198914">Java
+
+
+
+
+
+
+
+
+
+              SE 8's New Streams API</a> tutorial (May, 2014)<br>
+          </li>
+        </ul>
+      </ul>
+      <br>
+      <h3 class="tutorial"><a name="Change_Log"></a>Change Log<br>
+      </h3>
+      <ul>
+        <li>June 10th, 2015 - Created (Sang Shin)</li>
+        <li>Aug. 29th, 2015 - Exercise 5: Parallel stream is added (Sang
+          Shin)</li>
+        <li>Jan. 18th, 2017: Individual exercise descriptions are moved
+          to the source code (Sang Shin)</li>
+        <li>Jan. 24th, 2017: Parallel stream exercise code is modified
+          (Sang Shin)<br>
+        </li>
+      </ul>
+      <br>
+      <h3 class="tutorial"><a name="Tutorial_Exercises"></a>Lab
+        Exercises</h3>
+      <br>
+      Most exercises in this lab are provided in the form of
+      "ready-to-open-and-run" Maven projects in order to maximize the
+      effectiveness of your learning process. You are welcome to create
+      them from scratch.&nbsp;&nbsp; It is also strongly encouraged you
+      do as much experimentation of your own by changing the provided
+      code.<br>
+      <ul>
+        <li><a href="#Exercise_1">Exercise 1: External vs Internal
+            iteration (20 minutes)</a><br>
+        </li>
+        <li><a href="#Exercise_2">Exercise 2: Intermediate operations
+            (20 minutes)</a><br>
+        </li>
+        <li><a href="#Exercise_3">Exercise 3: Terminal operations (20
+            minutes)</a></li>
+        <li><a href="#Exercise_4">Exercise 4: Laziness (20 minutes)</a></li>
+        <li><a href="#Exercise_5">Exercise 5: Parallel stream (20
+            minutes)</a><br>
+        </li>
+        <li><a href="#Homework">Homework Exercise</a></li>
+      </ul>
+      <br>
+      <ul>
+        <ul>
+        </ul>
+      </ul>
+    </div>
+    <!-- ===================================================================================== -->
+    <h2><a name="Exercise_1"></a>Exercise 1: External vs Internal
+      Iteration<br>
+    </h2>
+    <div style="margin-left: 40px;"> <br>
+      Using collections for processing requires you to use “for”/”while”
+      loop in order to get the answer you want (external iteration) -
+      basically you have to specify “how it needs to be done” instead of
+      “what needs to be done”&nbsp; letting the system to handle the
+      iteration (internal iteration).<br>
+      <ol>
+        <li><a href="#1.1">Compute sum <br>
+          </a></li>
+        <li><a href="#1.2">Update employee salary</a><br>
+        </li>
+        <li><a href="#1.3">Get Transaction Ids of the Grocery
+            Transactions in transcation value sorted<br>
+          </a></li>
+      </ol>
+      <span style="text-decoration: underline;"><span
+          style="font-weight: bold;"> <br>
+        </span></span></div>
+    <br>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="1.1"></a>(1.1)
+      Compute sum<br>
+    </h3>
+    <blockquote>
+      <p>In this step, given list of numbers, you are going to find all
+        numbers that are greater than 10 and then compute the sum of it.<br>
+      </p>
+    </blockquote>
+    <div style="margin-left: 40px;"> 1. Open/Import project <span
+        style="font-weight: bold;"><span style="color: rgb(51, 51,
+          255);">stream_fluent_compute_sum</span></span><br>
+      <br>
+      2. Study <b>Main.java</b><br>
+      <br>
+      <table width="100%" cellspacing="2" cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.Arrays;<br>
+              import java.util.Iterator;<br>
+              import java.util.List;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp;<b> // Non-stream operation (external
+                iteration)</b><br>
+              &nbsp;&nbsp;&nbsp; private static int
+              sumIterator(List&lt;Integer&gt; list) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              Iterator&lt;Integer&gt; it = list.iterator();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int sum = 0;<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; while (it.hasNext())
+              {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              int num = it.next();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              if (num &gt; 10) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; sum += num;<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return sum;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; <b>// Stream operation (internal
+                iteration)</b><br>
+              &nbsp;&nbsp;&nbsp; private static int
+              sumStream(List&lt;Integer&gt; list) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return <b>list.stream().filter(</b><b>i
+                -&gt; i &gt; 10</b><b>).mapToInt(</b><b>i -&gt; i</b><b>).sum()</b>;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Integer&gt;
+              list = Arrays.asList(3, 8, 14, 11);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Compute sum of
+              numbers that are greater than 10<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println(sumIterator(list));<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println(sumStream(list));<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      3. Build and run the project. <br>
+      <br>
+      <span style="color: rgb(0, 0, 0);"></span>
+      <table style="width: 100%; text-align: left;" cellspacing="2"
+        cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td style="vertical-align: top;">25<br>
+              25<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_1">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a><br>
+      <br>
+      <br>
+    </div>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="1.2"></a>(1.2)
+      Update employee salary<br>
+    </h3>
+    <blockquote>
+      <p>In this step, you are going to find all employees whose salary
+        is less than 40000 dollars and who are located in USA and raise
+        their salary by 10%.&nbsp; You are going to perform this
+        operation via both external and internal iteration.<br>
+      </p>
+    </blockquote>
+    <div style="margin-left: 40px;"> 1. Open/Import project <span
+        style="font-weight: bold;"><span style="color: rgb(51, 51,
+          255);">stream_fluent_update_employee_salary</span></span><br>
+      <br>
+      2. Study <b>Main.java</b><br>
+      <br>
+      <table width="100%" cellspacing="2" cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.ArrayList;<br>
+              import java.util.List;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Employee&gt;
+              list = new ArrayList&lt;&gt;();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; list.add(new
+              Employee(1, "Sang", 20000, "USA"));<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; list.add(new
+              Employee(2, "John", 30000, "USA"));<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; list.add(new
+              Employee(3, "Mary", 40000, "Mexico"));<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; list.add(new
+              Employee(4, "Leon", 50000, "USA"));<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; list.add(new
+              Employee(4, "Bill", 60000, "Korea"));<br>
+              <br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <b>System.out.println("----
+
+
+
+
+
+
+
+                Non-stream (External iteration) operation ----");</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Employee e :
+              list) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              if (e.getSalary() &lt; 40000 &amp;&amp; e.getCountry() ==
+              "USA"){<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; e.setSalary(e.getSalary() * 110/100);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Employee e :
+              list) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println(e.getSalary());<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<b> </b><b><br>
+              </b><b> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                System.out.println("---- Stream (Internal iteration)
+                operation ----");</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <b>list.stream()</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<b>&nbsp;
+
+
+
+
+
+
+
+
+                .filter(e-&gt; e.getSalary() &lt; 40000 &amp;&amp;
+                e.getCountry() == "USA")</b><b><br>
+              </b><b> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; .forEach(e -&gt;
+                e.setSalary(e.getSalary() * 110/100));</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <b>list.forEach(e
+                -&gt; System.out.println(e.getSalary()));</b><br>
+              <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <ul>
+      </ul>
+      3. Employee.java<br>
+      <br>
+      <table width="100%" cellspacing="2" cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              public class Employee {<br>
+              &nbsp;&nbsp;&nbsp; public int id;<br>
+              &nbsp;&nbsp;&nbsp; private String name;<br>
+              &nbsp;&nbsp;&nbsp; private int salary;<br>
+              &nbsp;&nbsp;&nbsp; private String country;<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public Employee(int id, String name,
+              int salary, String country) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.id = id;<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.setName(name);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.salary =
+              salary;<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.country =
+              country;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public void setSalary(int sal) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.salary = sal;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public int getSalary() {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return salary;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public String getName() {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return name;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public void setName(String name) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.name = name;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public String getCountry() {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return country;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public void setCountry(String country)
+              {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.country =
+              country;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      4. Build and run<br>
+      <br>
+      <table width="100%" cellspacing="2" cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td valign="top">---- Non-stream (External iteration)
+              operation ----<br>
+              22000<br>
+              33000<br>
+              40000<br>
+              50000<br>
+              60000<br>
+              ---- Stream (Internal iteration) operation ----<br>
+              24200<br>
+              36300<br>
+              40000<br>
+              50000<br>
+              60000<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_1">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a> </div>
+    <br>
+    <br>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="1.3"></a>(1.3)
+      Retrieve transaction IDs of the grocery transactions order by
+      transaction values<br>
+    </h3>
+    <div style="margin-left: 40px;"> <br>
+      1. Open/Import project <span style="font-weight: bold;"><span
+          style="color: rgb(51, 51, 255);">stream_fluent_ordered_transaction_ids</span></span><br>
+      2. Study <b>Main.java<br>
+        <br>
+      </b>
+      <table width="100%" cellspacing="2" cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.ArrayList;<br>
+              import java.util.Arrays;<br>
+              import java.util.Collections;<br>
+              import java.util.Comparator;<br>
+              import java.util.List;<br>
+              import java.util.stream.Collectors;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              List&lt;Transaction&gt; transactions = new
+              ArrayList&lt;&gt;(Arrays.asList(new Transaction(1,
+              TransactionType.GROCERY, 100),<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; new Transaction(2,
+              TransactionType.DESK, 300), new Transaction(3,
+              TransactionType.GROCERY, 250),<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; new Transaction(4,
+              TransactionType.GROCERY, 150), new Transaction(5,
+              TransactionType.CHAIR, 80)));<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("---- Non-stream (External iteration)
+              operation ----");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Integer&gt;
+              transactionIds =
+              getGroceryTransactionIdsNoSteam(transactions);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              transactionIds.forEach(id -&gt;
+              System.out.println("transaction id = " + id));<b><br>
+                <br>
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;</b>
+              System.out.println("---- Stream (Internal iteration)
+              operation ----");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; transactionIds =
+              getGroceryTransactionIdsWithSteam(transactions);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              transactionIds.forEach(id -&gt;
+              System.out.println("transaction id = " + id));<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; // Non-stream operation (external
+              iteration)<br>
+              &nbsp;&nbsp;&nbsp; private static List&lt;Integer&gt;
+              getGroceryTransactionIdsNoSteam(List&lt;Transaction&gt;
+              transactions) {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              List&lt;Transaction&gt; groceryTransactions = new
+              ArrayList&lt;&gt;();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Transaction t :
+              transactions) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              if (t.getType() == TransactionType.GROCERY) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; groceryTransactions.add(t);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              Collections.sort(groceryTransactions, new
+              Comparator&lt;Transaction&gt;() {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              public int compare(Transaction t1, Transaction t2) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; return t2.getValue()<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              .compareTo(t1.getValue());<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; });<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Integer&gt;
+              transactionIds = new ArrayList&lt;&gt;();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (Transaction t :
+              groceryTransactions) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              transactionIds.add(t.getId());<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              <b><br>
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; </b>return
+              transactionIds;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; // Stream operation (internal
+              iteration)<br>
+              &nbsp;&nbsp;&nbsp; private static List&lt;Integer&gt;
+              getGroceryTransactionIdsWithSteam(List&lt;Transaction&gt;
+              transactions) {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return
+              transactions.parallelStream()<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;<b>&nbsp;&nbsp; .filter(t -&gt; t.getType() ==
+                TransactionType.GROCERY)</b><b><br>
+              </b><b> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                .sorted(Comparator.comparing(Transaction::getValue)</b><b><br>
+              </b><b> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; .reversed())</b><b><br>
+              </b><b> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                .map(Transaction::getId)</b><b><br>
+              </b><b> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                .collect(Collectors.toList());</b><br>
+              <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      2. Transaction.java<br>
+      <br>
+      <table width="100%" cellspacing="2" cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              public class Transaction {<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; private Integer id;<br>
+              &nbsp;&nbsp;&nbsp; private TransactionType type;<br>
+              &nbsp;&nbsp;&nbsp; private Integer value;<br>
+              &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; public Transaction(Integer id,
+              TransactionType type, Integer value) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; super();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.id = id;<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.type = type;<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.value = value;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public Integer getValue() {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return this.value;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public Integer getId() {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return this.id;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public void setId(Integer id) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.id = id;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; TransactionType getType() {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return type;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; void setType(TransactionType type) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.type = type;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      3. TransactionType.java<br>
+      <br>
+      <table width="100%" cellspacing="2" cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              public enum TransactionType {<br>
+              &nbsp;&nbsp;&nbsp; GROCERY,<br>
+              &nbsp;&nbsp;&nbsp; DESK,<br>
+              &nbsp;&nbsp;&nbsp; CHAIR<br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      4. Build and run<br>
+      <br>
+      <table width="100%" cellspacing="2" cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td valign="top">---- Non-stream (External iteration)
+              operation ----<br>
+              transaction id = 3<br>
+              transaction id = 4<br>
+              transaction id = 1<br>
+              ---- Stream (Internal iteration) operation ----<br>
+              transaction id = 3<br>
+              transaction id = 4<br>
+              transaction id = 1<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="index.html#Exercise_1">return to top of exercise</a>, <a
+        href="index.html#Tutorial_Exercises">return to top</a><br>
+      <br>
+      <br>
+      <br>
+    </div>
+    <h2><a name="Exercise_2"></a>Exercise 2: Stream Intermediate
+      operations<br>
+    </h2>
+    <p style="margin-left: 40px;">Stream operations can be categorized
+      into "intermediate" and "terminal" operations.&nbsp; In this
+      exercise, you are going to explore several intermediate
+      operations.<br>
+    </p>
+    <blockquote>
+      <ol>
+        <li><a href="#2.1">filter<br>
+          </a></li>
+        <li><a href="#2.2">map<br>
+          </a></li>
+        <li><a href="#2.3">sorted, distinct, limit</a><br>
+        </li>
+      </ol>
+    </blockquote>
+    <div style="margin-left: 40px;"> <br>
+    </div>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="2.1"></a>(2.1)
+
+
+
+
+
+
+
+
+
+
+
+      filter<br>
+    </h3>
+    <div style="margin-left: 40px;"><br>
+      1. Open/Import project <span style="font-weight: bold;">stream_filter</span>
+      <br>
+      <ul>
+      </ul>
+    </div>
+    <p style="margin-left: 40px;">2. Study Main.java<br>
+    </p>
+    <div style="margin-left: 40px;">
+      <ul>
+      </ul>
+      <table style="width: 100%; text-align: left;" cellspacing="2"
+        cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td style="vertical-align: top;">package mypackage;<br>
+              <br>
+              import java.util.Arrays;<br>
+              import java.util.List;<br>
+              import java.util.stream.Stream;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Integer&gt;
+              numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Perform filtering<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              Stream&lt;Integer&gt; snumbers = numbers.stream().<b>filter(p
+
+
+
+
+
+
+
+
+
+
+
+
+                -&gt; p &gt; 5)</b>;<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Print out the
+              result<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; snumbers.forEach(p
+              -&gt; System.out.print(p + " "));<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      3. Build and run the project<br>
+      <br>
+      <table width="100%" cellspacing="2" cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td valign="top">6 7 8<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_2">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a><br>
+      <br>
+      <br>
+    </div>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="2.2"></a>(2.2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      map<br>
+    </h3>
+    <div style="margin-left: 40px;"><br>
+      1. Open/Import project <span style="font-weight: bold;">stream_map</span><br>
+      <br>
+      2. Study Main.java<br>
+      <br>
+      <table width="100%" cellspacing="2" cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.Arrays;<br>
+              import java.util.List;<br>
+              import java.util.stream.Collectors;<br>
+              import java.util.stream.Stream;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("---- Perform filtering and then
+              mapping on numbers");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Integer&gt;
+              numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              Stream&lt;Integer&gt; snumbers = numbers.stream()<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; .filter(p -&gt; p &gt; 5)<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;<b>&nbsp; .map(n -&gt; n + 100);</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; snumbers.forEach(p
+              -&gt; System.out.print(p + " "));<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("\n---- Perform mapping on strings");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Stream&lt;String&gt;
+              names = Stream.of("apple", "Orange", "Cherry")<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;<b> .map(String::toUpperCase);</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; names.forEach(p
+              -&gt; System.out.print(p + " "));<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      3. Build and run the project<br>
+      <br>
+      <table width="100%" cellspacing="2" cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td valign="top">---- Perform filtering and then mapping on
+              numbers<br>
+              106 107 108 <br>
+              ---- Perform mapping on strings<br>
+              APPLE ORANGE CHERRY <br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_2">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a><br>
+      <br>
+      <br>
+    </div>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="2.3"></a>(2.3)
+
+
+
+
+
+
+
+
+
+
+
+      sorted, distinct, limit<br>
+    </h3>
+    <div style="margin-left: 40px;"><br>
+      1. Open/Import project <span style="font-weight: bold;">stream_sorted_distinct_limit</span><br>
+      <br>
+      2. Study Main.java<br>
+      <br>
+      <table width="100%" cellspacing="2" cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.Arrays;<br>
+              import java.util.List;<br>
+              import java.util.stream.Stream;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("---- Perform distinct, sorted, and
+              limit on numbers");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Integer&gt;
+              numbers = Arrays.asList(5, 6, 3, 3, 3, 5, 5, 6, 7, 1);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              Stream&lt;Integer&gt; snumbers = numbers.stream()<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<b>&nbsp;
+
+
+
+                &nbsp;&nbsp;&nbsp; .distinct()</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; .sorted()</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; .limit(4);</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; snumbers.forEach(p
+              -&gt; System.out.print(p + " "));<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("\n---- Perform distinct, unordered,
+              and limit on numbers");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; snumbers =
+              numbers.stream()<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <b>&nbsp;&nbsp;&nbsp;
+
+
+
+                .distinct()</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; .unordered()</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; .limit(4);</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; snumbers.forEach(p
+              -&gt; System.out.print(p + " "));<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("\n---- Perform distinct, sorted, and
+              limit on strings");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Stream&lt;String&gt;
+              names = Stream.of("apple", "apple", "orange", "cherry",
+              "banana")<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;<b>&nbsp;&nbsp; .distinct()</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; .sorted()</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; .limit(2);</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; names.forEach(p
+              -&gt; System.out.print(p + " "));<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      3. Build and run<br>
+      <br>
+      <table width="100%" cellspacing="2" cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td valign="top">---- Perform distinct, sorted, and limit on
+              numbers<br>
+              1 3 5 6 <br>
+              ---- Perform distinct, unordered, and limit on numbers<br>
+              5 6 3 7 <br>
+              ---- Perform distinct, sorted, and limit on strings<br>
+              apple banana <br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_2">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a><br>
+      <br>
+      <span style="color: rgb(51, 51, 255); font-weight: bold;"></span><br>
+    </div>
+    <br>
+    <h2><a name="Exercise_3"></a>Exercise 3: Terminal operations<br>
+    </h2>
+    <br>
+    <div style="margin-left: 40px;">In this exercise, you are going to
+      explore several terminal operations.
+      <ol>
+        <li><a href="#2.3">forEach<br>
+          </a></li>
+        <li><a href="#3.2">count and sum<br>
+          </a></li>
+        <li><a href="#3.3">findFirst and findAny<br>
+          </a></li>
+        <li><a href="#3.4">anyMatch, allMatch, noneMatch</a></li>
+        <li><a href="#3.5">reduce</a><br>
+        </li>
+      </ol>
+    </div>
+    <p style="margin-left: 40px;"></p>
+    <ul>
+      <ul>
+      </ul>
+      <ol>
+      </ol>
+    </ul>
+    <br>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="3.1"></a>(3.1)
+
+
+
+
+
+
+
+
+
+
+
+
+      forEach<br>
+    </h3>
+    <br>
+    <div style="margin-left: 40px;"> 1. Open/Import project <span
+        style="font-weight: bold;">stream_terminal_forEach</span><br>
+      <ul>
+      </ul>
+    </div>
+    <p style="margin-left: 40px;">2. Study Main.java<br>
+    </p>
+    <blockquote>
+      <table width="100%" cellspacing="2" cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.Arrays;<br>
+              import java.util.List;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Integer&gt;
+              numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; numbers.stream()<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .filter(p -&gt; p
+              &gt; 5)<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>&nbsp; .forEach(p -&gt;
+                System.out.println(p + " "))</b>;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      3. Build and run<br>
+      <br>
+      <table width="100%" cellspacing="2" cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td valign="top">6 <br>
+              7 <br>
+              8 <br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+    </blockquote>
+    <div style="margin-left: 40px;"> &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp; <a href="#Exercise_3">return to top of exercise</a>,
+      <a href="#Tutorial_Exercises">return to top</a><br>
+      <br>
+      <br>
+    </div>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="3.2"></a>(3.2)
+count
+
+
+
+
+
+
+
+
+
+
+
+      and sum<br>
+    </h3>
+    <div style="margin-left: 40px;"><br>
+      1. Open/Import project <span style="font-weight: bold;">stream_terminal_count_sum<br>
+      </span> <br>
+      2. Study Main.java<br>
+      <br>
+      <table width="100%" cellspacing="2" cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.Arrays;<br>
+              import java.util.List;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Integer&gt;
+              numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Perform count<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("count of numbers greater than 3 is " +
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+              numbers.stream().filter(p -&gt; p &gt; 3)<b>.count()</b>);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Perform sum<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("sum of the numbers is " + <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+              numbers.stream().filter(p -&gt; p &gt; 3)<b>.mapToInt(i-&gt;i).sum()</b>);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      3. Build and run <br>
+      <br>
+      <table width="100%" cellspacing="2" cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td valign="top">count of numbers greater than 3 is 5<br>
+              sum of the numbers is 30<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_3">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a><br>
+      <br>
+      <br>
+      <br>
+    </div>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="3.3"></a>(3.3)
+
+
+
+
+
+
+
+
+
+
+
+      findFirst and findAny<br>
+    </h3>
+    <div style="margin-left: 40px;"> <br>
+      1. Open/Import project <span style="font-weight: bold;">stream_terminal_findFirst</span><br>
+      <br>
+      2. Study Main.java<br>
+      <br>
+      <table width="100%" cellspacing="2" cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.Optional;<br>
+              import java.util.stream.Stream;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp; &nbsp;public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              Stream&lt;String&gt; names =
+              Stream.of("Sang","John","David", "Mary", "Dadu");<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              Optional&lt;String&gt; firstNameWithD = <b>names.filter(i
+                -&gt; i.startsWith("D"))<font color="#ff0000">.findFirst()</font>;</b><br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              if(firstNameWithD.isPresent()){<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+              System.out.println("First Name starting with D = "+
+              firstNameWithD.get());<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; names =
+              Stream.of("Sang","John","David", "Mary", "Dadu");<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              Optional&lt;String&gt; anyNameWithD = <b>names.filter(i
+                -&gt; i.startsWith("D"))<font color="#ff0000">.findAny()</font>;</b><br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              if(anyNameWithD.isPresent()){<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+              System.out.println("Any Name starting with D = "+
+              anyNameWithD.get());<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+              &nbsp;&nbsp; &nbsp;}<br>
+              <br>
+              }</td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      3. Build and run<br>
+      <br>
+      <table width="100%" cellspacing="2" cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td valign="top">First Name starting with D = David<br>
+              Any Name starting with D = David<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_3">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a><br>
+    </div>
+    <p><br>
+    </p>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="3.4"></a>(3.4)
+
+
+
+
+
+
+
+
+
+
+
+      anyMatch, allMatch, noneMatch<br>
+    </h3>
+    <div style="margin-left: 40px;"> <br>
+      1. Open/Import project <span style="font-weight: bold;">stream_terminal_match</span><br>
+      <br>
+      2. Study Main.java<br>
+      <br>
+      <table width="100%" cellspacing="2" cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.Arrays;<br>
+              import java.util.List;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Integer&gt;
+              numbers = Arrays.asList(1, 2, 3, 4, 6, 7, 8);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("Stream contains 5? "+ numbers.stream()<b>.anyMatch(i
+
+
+
+
+
+
+
+
+
+
+
+                -&gt; i==5)</b>);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("Stream contains all elements less than
+              10?&nbsp; "+ numbers.stream()<b>.allMatch(i -&gt; i&lt;10)</b>);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("Stream doesn't contain 10? "+
+              numbers.stream()<b>.noneMatch(i -&gt; i==10))</b>;<br>
+              &nbsp;<br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      3. Build and run<br>
+      <br>
+      <table width="100%" cellspacing="2" cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td valign="top">Stream contains 5? false<br>
+              Stream contains all elements less than 10?&nbsp; true<br>
+              Stream doesn't contain 10? true<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_3">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a><br>
+    </div>
+    <p><br>
+    </p>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="3.5"></a>(3.5)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      reduce<br>
+    </h3>
+    <div style="margin-left: 40px;"> <br>
+      1. Open/Import project <span style="font-weight: bold;">stream_terminal_reduce</span><br>
+      <br>
+      2. Study Main.java<br>
+      <br>
+      <table width="100%" cellspacing="2" cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.Arrays;<br>
+              import java.util.List;<br>
+              import java.util.Optional;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Integer&gt;
+              numbers = Arrays.asList(1, 2, 3, 4);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<b>
+                Optional&lt;Integer&gt; intOptional = numbers.stream()</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; .<font
+                  color="#ff0000">reduce((i, j) -&gt; {</font></b><font
+                color="#ff0000"><b><br>
+                </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp; return i * j;</b><b><br>
+                </b></font><b><font color="#ff0000">&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp; }</font>);</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; if
+              (intOptional.isPresent()) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("Multiplication through reduce = " +
+              intOptional.get()); // 24<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<b>&nbsp; intOptional =
+                numbers.stream()</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; .<font
+                  color="#ff0000">reduce((i, j) -&gt; {</font></b><font
+                color="#ff0000"><b><br>
+                </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp; return i + j;</b><b><br>
+                </b></font><b><font color="#ff0000">&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp; }</font>);</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; if
+              (intOptional.isPresent()) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("Addition through reduce = " +
+              intOptional.get()); // 10<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;String&gt;
+              fruits = Arrays.asList("apple", "orange", "cherry");<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;<b>&nbsp;&nbsp;
+                Optional&lt;String&gt; stringOptional = fruits.stream()</b><b><br>
+              </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; .<font
+                  color="#ff0000">reduce((i, j) -&gt; {</font></b><font
+                color="#ff0000"><b><br>
+                </b><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp; return i.concat(j);</b><b><br>
+                </b></font><b><font color="#ff0000">&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp; }</font>);</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; if
+              (stringOptional.isPresent()) {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("Concatenation through reduce = " +
+              stringOptional.get());<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      3. Build and run<br>
+      <br>
+      <table width="100%" cellspacing="2" cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td valign="top">Multiplication through reduce = 24<br>
+              Addition through reduce = 10<br>
+              Concatenation through reduce = appleorangecherry<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_3">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a><br>
+    </div>
+    <p><br>
+    </p>
+    <p><br>
+    </p>
+    <p> </p>
+    <h2><a name="Exercise_4"></a>Exercise 4: Laziness<br>
+    </h2>
+    <br>
+    <div style="margin-left: 40px;">Intermediate operator runs only when
+      terminate operator asks. This is called Laziness. <br>
+      <ol>
+        <li><a href="#4.1">Laziness example #1</a></li>
+        <li><a href="#4.2">Laziness example #2</a></li>
+      </ol>
+      <br>
+    </div>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="4.1"></a>(4.1)
+
+
+
+
+
+
+
+
+
+
+      Laziness example #1<br>
+    </h3>
+    <br>
+    <div style="margin-left: 40px;"> 1. Open/Import <span
+        style="font-weight: bold;">stream_laziness_01</span><br>
+      <ul>
+      </ul>
+    </div>
+    <p style="margin-left: 40px;">2. Study Main.java<br>
+    </p>
+    <blockquote>
+      <table width="100%" cellspacing="2" cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.Arrays;<br>
+              import java.util.List;<br>
+              import java.util.stream.Collectors;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Integer&gt;
+              numbersList = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9,
+              10);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Integer&gt;
+              newNumbersList = numbersList.stream()<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; <b>.filter(n -&gt; { // intermediate
+                operation</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("filtering " + n);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return n % 2 == 0;<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; })<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;<b> .map(n -&gt; { // intermediate
+                operation</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("mapping " + n);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return n * n;<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; })<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;<b>&nbsp; .limit(2) // intermediate operation</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; .collect(Collectors.toList()); //
+              terminal operation<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              newNumbersList.forEach(n -&gt; System.out.println(n));<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </blockquote>
+    <p style="margin-left: 40px;">3. Build and run<br>
+    </p>
+    <blockquote>
+      <table width="100%" cellspacing="2" cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td valign="top">filtering 1<br>
+              filtering 2<br>
+              mapping 2<br>
+              filtering 3<br>
+              filtering 4<br>
+              mapping 4<br>
+              4<br>
+              16<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </blockquote>
+    <p style="margin-left: 40px;"></p>
+    <div style="margin-left: 40px;">
+      <ul>
+      </ul>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a
+        href="#Exercise_4">return to top of exercise</a>, <a
+        href="#Tutorial_Exercises">return to top</a><br>
+      <br>
+      <br>
+    </div>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="4.2"></a>(4.2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      Laziness example #2<br>
+    </h3>
+    <div style="margin-left: 40px;"> <br>
+      1. Open/Import <span style="font-weight: bold;">stream_laziness_02</span><br>
+      <br>
+      2. Main.java<br>
+      <br>
+      <table style="width: 100%; text-align: left;" cellspacing="2"
+        cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td style="vertical-align: top;">package mypackage;<br>
+              <br>
+              import java.util.Arrays;<br>
+              import java.util.List;<br>
+              import java.util.stream.Collectors;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;String&gt;
+              strings = Arrays.asList("d2", "a2", "b1", "b3", "c2");<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("--- No terminal operation at the end
+              ------");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; strings.stream()<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; .map(s -&gt; s.toUpperCase())<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; .filter(s -&gt; {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println(s);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return
+              s.startsWith("B");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; }); <b>// no print</b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <b>// No terminal
+                operation</b><br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("--- Terminal operation at the end
+              ------");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; strings.stream()<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; .map(s -&gt; s.toUpperCase())<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; .filter(s -&gt; {<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println(s);<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return
+              s.startsWith("B");<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; })<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; .collect(Collectors.toList());<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      3. Build and run<br>
+      <br>
+      <table width="100%" cellspacing="2" cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td valign="top">--- No terminal operation at the end ------<br>
+              --- Terminal operation at the end ------<br>
+              D2<br>
+              A2<br>
+              B1<br>
+              B3<br>
+              C2<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+    </div>
+    <div style="margin-left: 40px;">&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp; <a href="#Exercise_4">return to top of exercise</a>,
+      <a href="#Tutorial_Exercises">return to top</a><br>
+    </div>
+    <div style="margin-left: 40px;"> <br>
+    </div>
+    <br>
+    <h2><a name="Exercise_5"></a>Exercise 5: Parallel stream<br>
+    </h2>
+    <br>
+    <div style="margin-left: 40px;">When a stream executes in parallel,
+      the Java runtime partitions the stream into multiple
+      substreams.&nbsp; In this exercise, you are going to compare
+      performance difference between sequential filtering operation and
+      parallel filtering operation.<br>
+      <ol>
+        <li><a href="#5.1">Parallel stream example<br>
+          </a></li>
+      </ol>
+      <br>
+    </div>
+    <h3 style="margin-left: 40px;" class="tutorial"><a name="5.1"></a>(5.1)
+
+
+
+
+
+      Parallel stream example<br>
+    </h3>
+    <br>
+    <div style="margin-left: 40px;"> 1. Open/Import <span
+        style="font-weight: bold;">stream_parallelStream</span><br>
+    </div>
+    <p style="margin-left: 40px;">2. Study Main.java<br>
+    </p>
+    <blockquote>
+      <table width="100%" cellspacing="2" cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td valign="top">package mypackage;<br>
+              <br>
+              import java.util.ArrayList;<br>
+              import java.util.Date;<br>
+              import java.util.List;<br>
+              import java.util.stream.Stream;<br>
+              <br>
+              public class Main {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; public static void main(String[] args)
+              {<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int max = 5000000;<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int threashold =
+              50000;<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Date d1, d2;<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; long elapsed_time;<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; List&lt;Integer&gt;
+              numbers = new ArrayList&lt;&gt;();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for (int i = 0; i
+              &lt; max; i++)<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              numbers.add(i);<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; /* <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;* Measure the
+              task without using parallelism<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;*/<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; d1 = new Date();<br>
+              <br>
+              <b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Perform
+                sequential filtering<br>
+                &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                numbers.stream().filter(p -&gt; {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                return p &gt; threashold;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }).mapToInt(i
+                -&gt; i).sum(); <br>
+              </b><br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; d2 = new Date();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; elapsed_time =
+              d2.getTime() - d1.getTime();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("Using sequential stream took " +
+              elapsed_time<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; + " milliseconds");<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; /* <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;* Measure the
+              task with using parallelism<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;*/<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; d1 = new Date();<br>
+              <br>
+              <b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // Perform
+                parallelStream<br>
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                numbers.parallelStream().filter(p -&gt; {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                return p &gt; threashold;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }).mapToInt(i
+                -&gt; i).sum(); </b><br>
+              <br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; d2 = new Date();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; elapsed_time =
+              d2.getTime() - d1.getTime();<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              System.out.println("Using parallel stream took " +
+              elapsed_time<br>
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp; + " milliseconds");<br>
+              <br>
+              &nbsp;&nbsp;&nbsp; }<br>
+              <br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </blockquote>
+    <p style="margin-left: 40px;">3. Build and run<br>
+    </p>
+    <blockquote>
+      <table width="100%" cellspacing="2" cellpadding="2" border="1">
+        <tbody>
+          <tr>
+            <td valign="top">Using sequential stream took 243
+              milliseconds<br>
+              Using parallel stream took 176 milliseconds<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </blockquote>
+    <div style="margin-left: 40px;"> &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp; <a href="#Exercise_5">return to top of exercise</a>,
+      <a href="#Tutorial_Exercises">return to top</a><br>
+    </div>
+    <div style="margin-left: 40px;"> <br>
+      <br>
+      <br>
+      <br>
+    </div>
+    <h2><a name="Homework"></a>Homework exercise<br>
+    </h2>
+    <br>
+    <div style="margin-left: 40px;">1. Send the following files to <a
+        href="mailto:javase-adv-homeworks@jpassion.com">javase-adv-homeworks@jpassion.com</a>
+      with <span style="font-weight: bold;">Subject </span>as <span
+        style="font-weight: bold;"></span><span style="font-weight:
+        bold;">javase8_lambda_streams<br>
+      </span>
+      <ul>
+        <li>Zip files (Perform "maven clean" to those projects first) of
+          the individual exercises above.<br>
+        </li>
+      </ul>
+    </div>
+    <div style="margin-left: 40px;"><br>
+      <span style="font-weight: bold;"></span></div>
+    <div style="margin-left: 40px;">
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <a href="index.html#Tutorial_Exercises">return to the top</a><br>
+    </div>
+    <br>
+    <div style="margin-left: 40px;"><br>
+    </div>
+    <p> </p>
+    <!-- ======================================================================================== -->
+  </body>
+</html>
