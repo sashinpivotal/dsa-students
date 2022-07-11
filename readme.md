@@ -2,7 +2,7 @@
 
 ## Java review contents
 
-= [1-day Java review hands-on lab](https://github.com/sashinpivotal/dsa-java-review)
+[1-day Java review hands-on lab](https://github.com/sashinpivotal/dsa-java-review)
 
 
 ## Java resources (in addition to class provided ones)
