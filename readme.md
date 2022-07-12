@@ -148,6 +148,11 @@ README.html
   - CTRL+N (find class)
   - CTRL+SHIFT+F (find file)
 
+### How to enable function keys for certain apps
+
+- [How to enable function keys for certain apps in Mac](https://www.techrepublic.com/article/how-to-permanently-display-the-function-keys-for-certain-apps-in-the-macbook-pro-touch-bar/)
+
+
 ## Binary and Octal Conversion
 
 - [Number system youtube intro](https://www.youtube.com/watch?v=FFDMzbrEXaE&ab_channel=TheOrganicChemistryTutor)
