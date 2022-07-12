@@ -29,6 +29,7 @@
 - What is "Open for extension Closed for modification" design principle?
 - SOLID Design principles
 
+
 ## .gitignore example file
 
 ```
@@ -70,6 +71,20 @@ bin/
 .vscode/
 README.html
 ```
+
+## git and GitHub exercise (individual exercise)
+
+- cd to project directory
+- create **.gitignore** file in the project root with the following content below
+- type **git init**
+- type **git add .**
+- type **git commit -m "intial commit"**
+
+- create a new repo in GitHub giving a same name of your project - do not ceate README.md
+- cd to project directory
+- type **git remote add origin \<url of the GitHub repo\>**
+- type **git push -u origin main** 
+
 
 ## IntelliJ Shortcut keys
 
