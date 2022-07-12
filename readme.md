@@ -85,6 +85,13 @@ README.html
 - type **git remote add origin \<url of the GitHub repo\>**
 - type **git push -u origin main** 
 
+## git and GitHub exercise (Group exercise)
+
+- Choose one person in your group as project-leader
+- THe project-leader add other team members as collaborators
+- The collaborators accept the collaborator invitation
+- The collaborators clone the project-leader's project
+- Start collbaration
 
 ## IntelliJ Shortcut keys
 
