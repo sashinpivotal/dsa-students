@@ -235,6 +235,24 @@ public class MyNumberFormatException extends RuntimeException {
 
 - [Java Exception presentation](https://github.com/sashinpivotal/java-presentations/blob/main/javase_exceptions.pdf)
 
+## Challenge exercise
+
+- Write generic conversion code that handles all number systems,
+  binary, octal, decimal, and hex-decimal
+
+```
+public static int convertFromGeneral(String toBeConverted, int numberBase) {
+
+    int decimalValueResult = 0;
+    
+    //
+    // write your code here
+    //
+    
+    return decimalValueResult;
+}
+```
+
 ## Quick Quiz after Day 1
 
 - What is ".gitignore" file for?
