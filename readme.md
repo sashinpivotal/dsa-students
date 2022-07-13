@@ -328,6 +328,20 @@ public class MyNumberFormatException extends RuntimeException {
   - 2 * O(n log n) + n -> 2 * O(n log n) -> O (n log n)
 
 
+## Example code of creating int array
+
+```
+    private static int[] createArray(int size) {
+        int[] ints = new int[size];
+        Random random = new Random();
+        for (int i = 0; i < size; i++) {
+            ints[i] = random.nextInt(size);
+        }
+        return ints;
+    }
+```
+
+
 ## Sorting related resources
 
 - [Animated sorting](https://visualgo.net/en/sorting)
