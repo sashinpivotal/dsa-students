@@ -194,17 +194,10 @@ A = decimal 10
 ## Lab 1.3 Test plans
 
 - Positive tests
-  - normal cases
-    - it should return valid decimal value given valid number array
-    - it should return valid decimal value given valid number array with duplicates
-  - edge cases
-    - null array
-      - it should throw InvalidParameterException given null array
-    - empty array
-      - it should throw InvalidParameterException given empty array
+    - it should return valid decimal value given valid number strings   
 
 - Negative tests
-  - the input string has non numeric value
+  - the input string has non numeric value like "1xyz2"
     - it should throw MyNumberFormatException given an array that contains non-numeric characters
   - the resulting number is not in the range of 4 byte int
 
