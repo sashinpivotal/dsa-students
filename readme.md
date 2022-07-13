@@ -190,7 +190,7 @@ A = decimal 10
 
 - [int value range](https://www.i-programmer.info/ebooks/modern-java/5423-java-data-types-numeric-data.html#:~:text=128%20to%20127-,short%202%20bytes%20%2D32%2C768%20to%2032%2C767,4%20bytes%207%20decimal%20digits) 
 
-## Challenge exercise
+## Challenge exercise of number sting conversion to decimal value
 
 - Write generic conversion code that handles all number systems,
   binary, octal, decimal, and hex-decimal
