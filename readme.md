@@ -249,7 +249,7 @@ public static int convertFromGeneral(String toBeConverted,
   </configuration>
   ```
 
-1. Add the following code to your class as a field and 
+4. Add the following code to your class as a field and 
    import classes
 
 ```
@@ -257,13 +257,13 @@ public static int convertFromGeneral(String toBeConverted,
             = LoggerFactory.getLogger(HRClient.class);
 ```
 
-1. Add the following code for actually logging
+5. Add the following code for actually logging
 
 ```
 logger.info("----------- logger info message");
 ```
 
-1. Run the application and observe the logging messages
+6. Run the application and observe the logging messages
 
 ## Lab 1.3 Test plans
 
