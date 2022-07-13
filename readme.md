@@ -317,20 +317,6 @@ public class MyNumberFormatException extends RuntimeException {
 - What is the top-level Unchecked exception in Java?
 - What does try/catch block do in Java?
 
-## Lab 1.4 corrected wording from the book (page 29)
-
-Steps for Completion
-1. Assume that we have a way to sort the inputs in O(n log n). This is provided in the following method:
-            public void mergeSort(int[] input) {
-              Arrays.sort(input);
-}
-We can use this method to sort one input array, or both, and make the intersection easier.
-1. To sort one input array, we can use a binary search on it. The runtime complexity is O(n log n) for the merge sort plus *O(n log n)* for the binary search
-per item in the first list. This is **O(n log n) + O(n log n)** which results in a final O(n log n).
-1. Sort both arrays, and have two pointers, one for each array.
-2. Go through the input arrays in a linear fashion.
-3. Advance a pointer if the other pointer is pointing to a larger value.
-4. If the values at both pointers are equal, both pointers are incremented. The runtime complexity for this algorithm is 2 * (n log n) for the two merge sorts plus the n for the linear pass after the sorting. This results in 2 * (n log n) + n with a final O(n log n).
 
 ## Runtime complexity of Lab 1.4 - find interesected numbers
 
