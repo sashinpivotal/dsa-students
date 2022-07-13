@@ -241,7 +241,10 @@ public class MyNumberFormatException extends RuntimeException {
   binary, octal, decimal, and hex-decimal
 
 ```
-public static int convertFromGeneral(String toBeConverted, int numberBase) {
+// numberBase could be 2,8,10,16 to represent
+// binary, octal, decimal, and hexa-decimal respectively
+public static int convertFromGeneral(String toBeConverted, 
+                                     int numberBase) {
 
     int decimalValueResult = 0;
     
