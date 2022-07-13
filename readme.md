@@ -190,6 +190,26 @@ A = decimal 10
 
 - [int value range](https://www.i-programmer.info/ebooks/modern-java/5423-java-data-types-numeric-data.html#:~:text=128%20to%20127-,short%202%20bytes%20%2D32%2C768%20to%2032%2C767,4%20bytes%207%20decimal%20digits) 
 
+## Challenge exercise
+
+- Write generic conversion code that handles all number systems,
+  binary, octal, decimal, and hex-decimal
+
+```
+// numberBase could be 2,8,10,16 to represent
+// binary, octal, decimal, and hexa-decimal respectively
+public static int convertFromGeneral(String toBeConverted, 
+                                     int numberBase) {
+
+    int decimalValueResult = 0;
+    
+    //
+    // write your code here
+    //
+    
+    return decimalValueResult;
+}
+```
 
 ## Lab 1.3 Test plans
 
@@ -235,26 +255,6 @@ public class MyNumberFormatException extends RuntimeException {
 
 - [Java Exception presentation](https://github.com/sashinpivotal/java-presentations/blob/main/javase_exceptions.pdf)
 
-## Challenge exercise
-
-- Write generic conversion code that handles all number systems,
-  binary, octal, decimal, and hex-decimal
-
-```
-// numberBase could be 2,8,10,16 to represent
-// binary, octal, decimal, and hexa-decimal respectively
-public static int convertFromGeneral(String toBeConverted, 
-                                     int numberBase) {
-
-    int decimalValueResult = 0;
-    
-    //
-    // write your code here
-    //
-    
-    return decimalValueResult;
-}
-```
 
 ## Quick Quiz after Day 1
 
