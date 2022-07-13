@@ -211,6 +211,60 @@ public static int convertFromGeneral(String toBeConverted,
 }
 ```
 
+## How to add logging to your Maven project
+
+1. Add dependencies below to your *pom.xml". 
+   Make sure you click "Maven refresh" icon in your IntelliJ
+
+```
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.36</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.36</version>
+        </dependency>
+```
+
+2. Create "resources" directory under "src/main"
+3. Create *logback.xml* under "src/main/resources" directory
+   with the following contents
+
+  ```
+  <configuration>
+      <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+          <encoder>
+              <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+          </encoder>
+      </appender>
+
+      <root level="debug">
+          <appender-ref ref="STDOUT" />
+      </root>
+  </configuration>
+  ```
+
+1. Add the following code to your class as a field and 
+   import classes
+
+```
+    private static final Logger logger
+            = LoggerFactory.getLogger(HRClient.class);
+```
+
+1. Add the following code for actually logging
+
+```
+logger.info("----------- logger info message");
+```
+
+1. Run the application and observe the logging messages
+
 ## Lab 1.3 Test plans
 
 - Positive tests
