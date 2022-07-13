@@ -204,21 +204,23 @@ A = decimal 10
 - Two different ways of testing if your code generates an exception correctly
 
 ```
-    @Test(expected = MyNumberFormatException.class)
-    public void _convertFromOctal_should_throw_MyNumberFormatException_given_octal_string_with_non_number_chars() throws MyNumberFormatException {
-        BinaryConvert.convertFromOctal("17a");
-    }
+// This one just test if InvalidParameterException is thrown
+@Test(expected = InvalidParameterException.class)
+public void _convertFromOctal_should_throw_InvalidParameterException_given_octal_string_with_non_number_chars() throws InvalidParameterException {
+    BinaryConvert.convertFromOctal("17a");
+}
 
-    @Test
-    public void _convertFromOctal_should_throw_MyNumberFormatException_given_octal_string_with_non_number_chars2() {
-        String badOctalStr = "17a";
-        try {
-            BinaryConvert.convertFromOctal(badOctalStr);
-            fail("Didn't throw exception");
-        } catch (MyNumberFormatException ipe) {
-            assertEquals(badOctalStr, ipe.getMessage());
-        }
+// This one also test if the exception message is correct as well
+@Test
+public void _convertFromOctal_should_throw_InvalidParameterException_given_octal_string_with_non_number_chars2() {
+    String badOctalStr = "17a";
+    try {
+        BinaryConvert.convertFromOctal(badOctalStr);
+        fail("Didn't throw exception");
+    } catch (InvalidParameterException ipe) {
+        assertEquals(badOctalStr, ipe.getMessage());
     }
+}
 ```
 - Example custom exception class
 
