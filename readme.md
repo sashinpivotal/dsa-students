@@ -317,6 +317,10 @@ public class MyNumberFormatException extends RuntimeException {
 - What is the top-level Unchecked exception in Java?
 - What does try/catch block do in Java?
 
+## Runtime complexity
+
+- [Big O notation Youtube videos](https://www.youtube.com/results?search_query=big+o+notation)
+  
 
 ## Runtime complexity of Lab 1.4 - find interesected numbers
 
@@ -345,7 +349,7 @@ public class MyNumberFormatException extends RuntimeException {
 ## Sorting related resources
 
 - [Animated sorting](https://visualgo.net/en/sorting)
-- [Big O notation Youtube videos](https://www.youtube.com/results?search_query=big+o+notation)
+
 
 ## Bubble sort
 
