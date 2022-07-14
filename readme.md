@@ -394,31 +394,6 @@ Every recursive program follows the same basic sequence of steps:
 - [Quicksort: Partioning an array (~5 minutes)](https://www.youtube.com/watch?v=MZaf_9IZCrc&ab_channel=KCAng)
 - [Lomundo quicksort youtube video (~3 minutes)](https://www.youtube.com/watch?v=86WSheyr8cM&ab_channel=BukanCaraCepat)
 
-## Mistake in the QuickSort lab document
-
-There is a mistake in the lab document of Lab 2.3's "partition" method as shown below:
-
-```
-        //  1. if the current array element is less than the pivot
-        //      a. increment "top" by 1
-        //      b. swap the two numbers at the "top" position and the current array index
-        // once the loop is over, swap the values at index "top" with the last iteration position
-        // this will move the pivot at the end of the array to the top position
-        // finally, return the top value + 1
-        // this will become the position of the new pivot for the next recursion
-```
-
-The above should have been the following:
-
-```
-        //  1. if the current array element is less than the pivot
-        //      a. increment "top" by 1
-        //      b. swap the two numbers at the "top" position and the current array index
-        // once the loop is over, swap the values at index "top+1" with "end" position
-        // this will move the pivot at the end of the array to the "top+1" position
-        // finally, return the top value + 1
-        // this will become the position of the new pivot for the next recursion
-```
 
 ## Quick Quiz after Day 2
 
@@ -429,61 +404,6 @@ The above should have been the following:
 1. If you call a method in recursive fashion without "base condition" check, what would happen?
 1. Can you explain how QuickSort works at the high level?
 
-## Optional example code (We will do just demo and move on)
-
-- Customer class
-
-```
-public class Customer {
-
-    private String name;
-
-    public Customer(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-}
-```
-
-```
-public class CustomerDao {
-
-    public Customer retrieveCustomerFromDatabase(String name) {
-        return null;
-    }
-
-    public Optional<Customer> retrieveCustomerFromDatabaseOptional(String name) {
-        if (name.equals("sang")) {
-            return Optional.of(new Customer(name));
-        } else {
-            return Optional.empty();
-        }
-    }
-}
-```
-
-```
-public class OptionalExample {
-
-    public static void main(String[] args) {
-        Customer customer = new CustomerDao().retrieveCustomerFromDatabase("sang");
-        if (customer != null) {
-            System.out.println(customer.getName());
-        }
-
-        Optional<Customer> optionalCustomer = new CustomerDao().retrieveCustomerFromDatabaseOptional("sang");
-        if (optionalCustomer.isPresent()) {
-            System.out.println(optionalCustomer.get().getName());
-        }
-        else{
-            System.out.println("customer not found");
-        }
-    }
-}
-```
 
 ## Linked List resources
 
